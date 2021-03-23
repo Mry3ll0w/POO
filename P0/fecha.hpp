@@ -1,6 +1,6 @@
 #ifndef Fecha_HPP
 #define Fecha_HPP
-
+#include "cadena.hpp"
 #include <iostream>
 #include <cstring>
 #include <ctime>
@@ -13,11 +13,12 @@ class Fecha{
         //Constantes
         static const int  AnnoMin=1902;
         static const int AnnoMaximo=2037;
-        
+        //Constructs
         explicit Fecha(int d, int m, int y);
         explicit Fecha(int d,int m);
         explicit Fecha(int d);
-        Fecha(string date);//poner Fecha sin anno
+        Fecha(const char* date);
+        operator const char*()const;
         class invalida{
             public:
                     invalida(int a):input(a){};
@@ -53,16 +54,26 @@ class Fecha{
     private:
 
         int day,month,year;
-        string month_selector(int month);
-        string Fecha_check(int dd ,int mm,int yy);
-       
+        const char* month_selector(int month);
+        const char* Fecha_check(int dd ,int mm,int yy);
+        void update_fecha();
 
 };
-inline bool operator == (Fecha a,Fecha b);
-inline bool operator != (Fecha a, Fecha b);
+inline bool operator == (Fecha a,Fecha b){
+    return (a.dia()==b.dia() && a.mes()==b.mes() && a.anno()==b.anno() );
+}
+inline bool operator != (Fecha a, Fecha b){
+    return !(a==b);
+}
 bool operator >(Fecha a, Fecha b);
-inline bool operator <(Fecha a, Fecha b);
-inline bool operator >=(Fecha a, Fecha b);
-inline bool operator <= (Fecha a, Fecha b);
+inline bool operator <(Fecha a, Fecha b){
+    return (b > a);
+}
+inline bool operator >=(Fecha a, Fecha b){
+       return !(a<b);
+}
+inline bool operator <= (Fecha a, Fecha b){
+        return !(b<a);
+}
 
 #endif

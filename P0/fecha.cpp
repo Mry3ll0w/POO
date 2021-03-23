@@ -9,7 +9,7 @@ Fecha::Fecha(int d,int m,int y):day(d),month(m),year(y){
         this->month=aux.mes();
         this->year=aux.anno();
     }
-    if (Fecha_check(d,m,y)=="ok"){
+    if (strcmp(Fecha_check(d,m,year),"ok")==0){
         day=d;
         month=m;
         year=y;
@@ -30,7 +30,7 @@ Fecha::Fecha(int d,int m):day(d),month(m){
     time(&tt);
     tm TM = *localtime(&tt);
     year = TM.tm_year + 1900;
-    if (Fecha_check(d,m,year)=="ok")
+    if (strcmp(Fecha_check(d,m,year),"ok")==0)
     {
         day=d;
         month = m;
@@ -53,7 +53,7 @@ Fecha::Fecha(int d):day(d){
     tm TM = *localtime(&tt);
     month = TM.tm_mon+1;
     year = TM.tm_year + 1900;
-    if (Fecha_check(d,month,year)=="ok")
+    if (strcmp(Fecha_check(d,month,year),"ok")==0)
     {
         day=d;
     }
@@ -72,7 +72,7 @@ Fecha::Fecha(){
 
 Fecha::~Fecha()=default;
 
-string Fecha::month_selector(int m){
+const char* Fecha::month_selector(int m){
         switch(m){
             case 1: 
                 return "Enero";
@@ -127,74 +127,20 @@ Fecha& Fecha::operator = (Fecha a){
     return *this;
  }
 
-Fecha::Fecha(string date){
+Fecha::Fecha(const char* date){
     //Verificar que este bien introducido
-    try{
-        if (date.size()>10)
-        {
-            throw 8;
-        }
-        
-    }
-    catch(int e){
-        if (e==8)
-        {
-            cerr<<"Se ha introducido una Fecha no valida"<<endl;
-            exit(1);
-        }
-        
-    }
-    //Variables
-    int slash_found[2],k=0;
-    string str_day,str_mes,str_year;
+    std::sscanf(date,"%d/%d/%d",&day,&month,&year);
 
-    //algoritmo 
-
-    for (size_t i = 0; i < date.size(); i++)
-    {
-        if (date[i]=='/')
-        {
-            slash_found[k]=i;
-            k++;
-        }
-        
-    }
-    for (size_t i = 0; i < slash_found[0]; i++)
-    {
-        str_day+=date[i];
-    }
-    day = stoi(str_day);
-   
-    for (size_t i = slash_found[0]+1; i < slash_found[1]; i++){
-        str_mes+=date[i];
-        
-    }
-    month= stoi(str_mes);
-    
-    for (size_t i = slash_found[1]+1; i < date.size(); i++)
-    {
-        str_year+=date[i];
-    //mete mas de lo que debe
-    }
-
-    try
-    {
-        if(str_year.size()>4){
-            throw 9;
-        }
-    }
-    catch(int e)
-    {
-        cerr << "Se ha introducido un year de forma incorrecta" << '\n';
-        exit(e);
-    }
-    year = stoi(str_year);
     if (day == 0 && month ==0 && year==0)
     {
         Fecha aux;
-        this->day=aux.dia();
-        this->month=aux.mes();
-        this->year=aux.anno();
+        *this=aux;
+    }
+    else{ 
+        if (strcmp(Fecha_check(day,month,year),"ok")!=0)
+        {
+            exit;
+        }
     }
  }
 
@@ -204,18 +150,9 @@ Fecha& Fecha::operator ++(){
 }
 
 Fecha& Fecha::operator --(){
-    
     *this-=1;
     return *this;
 }
-
-inline bool operator == (Fecha a,Fecha b){
-    return (a.dia()==b.dia() && a.mes()==b.mes() && a.anno()==b.anno() );
-}
-inline bool operator != (Fecha a, Fecha b){
-    return !(a==b);
-}
-
 bool operator >(Fecha a, Fecha b){
 
     if (a.anno() > b.anno())
@@ -235,26 +172,6 @@ bool operator >(Fecha a, Fecha b){
 
 }
 
-inline bool operator <(Fecha a, Fecha b){
-    return !(a > b);
-}
-
-inline bool operator >=(Fecha a, Fecha b){
-    if (a > b == true || a==b)
-        return true;
-    else
-        return false;
-    
-    
-}
-
-inline bool operator <= (Fecha a, Fecha b){
-    if (a < b || a == b)
-        return true;
-    else
-        return false;    
-}
-
 Fecha& Fecha::operator +(int n){
     time_t aux_ptr;
     tm* ptr;
@@ -268,29 +185,17 @@ Fecha& Fecha::operator +(int n){
     year=ptr->tm_year;
     month=ptr->tm_mon;
     day=ptr->tm_mday;
-
-    if (month == 2 && day==31)
-    {
-        if (year %4 &&( year % 400 || year % 100!=0))
-        {
-            day=28;
-        }
-        else{
-            day=29;
-        }
-    }
-    
-
+    update_fecha();
     return *this;
 }
 
 Fecha& Fecha::operator -(int n){
-    n*=-1;
-    *this=*this+n;
+    *this+=-n;
+    update_fecha();
     return *this;
 }
 
-string Fecha:: Fecha_check(int dd,int mm,int yy){
+const char* Fecha:: Fecha_check(int dd,int mm,int yy){
       
       try
     {
@@ -356,12 +261,45 @@ string Fecha:: Fecha_check(int dd,int mm,int yy){
 }
 
  Fecha& Fecha::operator+=(int n){
-     *this=*this+n;
-     return *this;
+    *this=*this+n;
+    update_fecha();
+    return *this;
  }
 
  Fecha& Fecha::operator-=(int n){
-     *this=*this-n;
+     *this+=-n;
+     update_fecha();
      return *this;
  }  
    
+void Fecha::update_fecha(){
+
+    if (month == 2 && day==31)
+    {
+        if (year %4 &&( year % 400 || year % 100!=0))
+        {
+            day=28;
+        }
+        else{
+            day=29;
+        }
+    }
+    if ((month == 4 || month == 6 || month == 9 || month == 11)&&(day==31))
+    {
+        day=30;
+    }
+    
+    
+}
+
+Fecha::operator const char *()const{
+    char* aux = new char[40];
+    tm fecha={};
+    fecha.tm_mday=day;
+    fecha.tm_mon = month-1;
+    fecha.tm_year= year -1900;
+
+    mktime(&fecha);
+    strftime(aux,40,"%A %d de %B de %Y",&fecha);
+    return aux;    
+}
