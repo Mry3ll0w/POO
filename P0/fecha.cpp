@@ -131,12 +131,7 @@ Fecha::Fecha(const char* date){
         Fecha aux;
         *this=aux;
     }
-    else{ 
-        if (strcmp(Fecha_check(day,month,year),"ok")!=0)
-        {
-            exit;
-        }
-    }
+    Fecha_check(day,month,year);
  }
 
 bool operator >(Fecha a, Fecha b){
@@ -189,63 +184,37 @@ const char* Fecha:: Fecha_check(int dd,int mm,int yy){
     {
         if (dd > 31 || dd <1 )
         {
-            throw 1 ;
+            throw Fecha::Invalida ("Dia erroneo") ;
         }
         else if (mm > 12 || mm<1)
         {
-            throw 2;
+            throw Fecha::Invalida("Mes erroneo") ; 
         }
         else if(yy < Fecha::AnnoMinimo){
-            throw 3;
+            throw Fecha::Invalida ("anno < AnnoMinimo");
         }
         else if (yy > Fecha::AnnoMaximo)
         {
-            throw 4;
+            throw Fecha::Invalida ("anno > AnnoMaximo");
         }
         else{
-                if (mm==4 || mm==6 || mm==9 || mm==11 && dd >30 )
+                if ((mm==4 || mm==6 || mm==9 || mm==11 )&& (dd >30 ))
                 {
-                    throw 5; // no tiene 31 dias 
+                    throw Fecha::Invalida ("este mes no tiene 31 dias"); // no tiene 31 dias 
                 }
-                else if (mm==2 && (yy%4)!=0 && dd >28){ 
-                    throw 6;//29 dias en no bisisesto
+                else if ((mm==2 && ((yy%4)!=0)) && (dd >28)){ 
+                    throw Fecha::Invalida ("Este anno no es bisiesto");//29 dias en no bisisesto
                 }
                 else if (mm==2 && dd>29)
-                    throw 7; //feb no tiene mas de 29 dias
+                    throw Fecha::Invalida ("feb no tiene mas de 29 dias"); //feb no tiene mas de 29 dias
         }  
         
     }
-    catch(int e)
+    catch(Fecha::Invalida error)
     {
-        Invalida er(e);
-        switch(er.error()){
-            case 1:
-                er.por_que("Se ha introducido un dia erroneo ") ; 
-                break;
-            case 2:
-                er.por_que("Se ha introducido un mes no valido");
-                break;
-            case 3:
-                er.por_que("Se ha introducido un anno menor al anno minimo");
-                break;
-            case 4:
-                er.por_que("Se ha introducido un anno mayor al anno maximo");
-                break;
-            case 5:
-                er.por_que("Se ha introducido un mes con 31 dias cuando solo tiene 30");
-                break;  
-            case 6: 
-                er.por_que("Se ha introducido mas de 28 dias en febrero y el anno no es bisiesto");
-                break;
-            case 7: 
-                er.por_que("febrero no tiene mas de 29 dias");
-                break;
-            default:
-                break;                      
-        }
-        exit(e);
+        cout<<error.por_que()<<endl;
     }
-    return "ok";
+     return "ok";    
 }
 
  Fecha& Fecha::operator+=(int n){

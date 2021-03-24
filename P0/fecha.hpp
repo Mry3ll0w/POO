@@ -21,15 +21,12 @@ class Fecha{
         operator const char*()const;
         class Invalida{
             public:
-                    Invalida(int a):input(a){};
-                    int error(){
+                    Invalida(const char* ent ):input(ent){};
+                    inline const char* por_que()const{
                         return input;
                     };
-                    inline void por_que(const char* e){
-                        cout<<e<<endl;
-                    };
             private:
-                int input;
+                const char* input;
         };
         Fecha();
         int dia()const noexcept{
@@ -45,15 +42,22 @@ class Fecha{
         //operator = usando el default
         Fecha& operator ++(){
             *this+=1;
+            update_fecha(*this);
             return *this;
         }
         inline Fecha operator ++(int){
             *this+=1;
+            update_fecha(*this);
             return  *this;
         }
-        Fecha operator --();
+        Fecha operator --(){
+            *this+=-1;
+            update_fecha(*this);
+            return *this;
+        }
         inline Fecha& operator--(int){
             *this+=-1;
+            update_fecha(*this);
             return *this;
         }
         Fecha operator +(int)const;
