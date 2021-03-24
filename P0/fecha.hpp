@@ -11,7 +11,7 @@ class Fecha{
     
     public:
         //Constantes
-        static const int  AnnoMin=1902;
+        static const int  AnnoMinimo=1902;
         static const int AnnoMaximo=2037;
         //Constructs
         explicit Fecha(int d, int m, int y);
@@ -19,9 +19,9 @@ class Fecha{
         explicit Fecha(int d);
         Fecha(const char* date);
         operator const char*()const;
-        class invalida{
+        class Invalida{
             public:
-                    invalida(int a):input(a){};
+                    Invalida(int a):input(a){};
                     int error(){
                         return input;
                     };
@@ -42,11 +42,11 @@ class Fecha{
             return year;
         }
         void show_date()noexcept;
-        Fecha& operator = (Fecha a);
+        //operator = usando el default
         Fecha& operator ++();
         Fecha& operator --();
-        Fecha& operator +(int);
-        Fecha& operator -(int);
+        Fecha operator +(int)const;
+        Fecha operator -(int)const;
         Fecha& operator+=(int);
         Fecha& operator-=(int);
         ~Fecha();
@@ -56,7 +56,7 @@ class Fecha{
         int day,month,year;
         const char* month_selector(int month);
         const char* Fecha_check(int dd ,int mm,int yy);
-        void update_fecha();
+        void update_fecha(Fecha&)const ;
 
 };
 inline bool operator == (Fecha a,Fecha b){

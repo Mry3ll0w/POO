@@ -77,7 +77,7 @@ public:
     
 };
 //Funciones
-Cadena& operator+(Cadena& a,Cadena& b);
+Cadena operator+(Cadena& a,Cadena& b);
 
 
 #endif

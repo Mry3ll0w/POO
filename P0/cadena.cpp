@@ -76,7 +76,7 @@ Cadena& Cadena::operator =(const char parser_cad[]){
     
  
 
- Cadena& operator+(Cadena& a,Cadena& b){
+ Cadena operator+(Cadena& a,Cadena& b){
     return a+=b;
 }
 

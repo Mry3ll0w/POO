@@ -120,12 +120,7 @@ void Fecha::show_date()noexcept{
     cout<<day<<" de "<<month_selector(month)<<" de "<<year<<endl;
 }
 
-Fecha& Fecha::operator = (Fecha a){
-    this->year=a.year;
-    this->month=a.month;
-    this->day=a.day;
-    return *this;
- }
+
 
 Fecha::Fecha(const char* date){
     //Verificar que este bien introducido
@@ -172,7 +167,8 @@ bool operator >(Fecha a, Fecha b){
 
 }
 
-Fecha& Fecha::operator +(int n){
+Fecha Fecha::operator +(int n)const{
+    Fecha temp_date(*this);
     time_t aux_ptr;
     tm* ptr;
     time(&aux_ptr);
@@ -182,17 +178,18 @@ Fecha& Fecha::operator +(int n){
     ptr->tm_mday=day+n;
     mktime(ptr);
     
-    year=ptr->tm_year;
-    month=ptr->tm_mon;
-    day=ptr->tm_mday;
-    update_fecha();
-    return *this;
+    temp_date.year=ptr->tm_year;
+    temp_date.month=ptr->tm_mon;
+    temp_date.day=ptr->tm_mday;
+    update_fecha(temp_date);
+    return temp_date;
 }
 
-Fecha& Fecha::operator -(int n){
-    *this+=-n;
-    update_fecha();
-    return *this;
+Fecha Fecha::operator -(int n)const{
+    Fecha temp_date(*this);
+    temp_date+=-n;
+    update_fecha(temp_date);
+    return temp_date;
 }
 
 const char* Fecha:: Fecha_check(int dd,int mm,int yy){
@@ -207,7 +204,7 @@ const char* Fecha:: Fecha_check(int dd,int mm,int yy){
         {
             throw 2;
         }
-        else if(yy < Fecha::AnnoMin){
+        else if(yy < Fecha::AnnoMinimo){
             throw 3;
         }
         else if (yy > Fecha::AnnoMaximo)
@@ -229,7 +226,7 @@ const char* Fecha:: Fecha_check(int dd,int mm,int yy){
     }
     catch(int e)
     {
-        invalida er(e);
+        Invalida er(e);
         switch(er.error()){
             case 1:
                 er.what("Se ha introducido un dia erroneo ") ; 
@@ -262,34 +259,32 @@ const char* Fecha:: Fecha_check(int dd,int mm,int yy){
 
  Fecha& Fecha::operator+=(int n){
     *this=*this+n;
-    update_fecha();
+    update_fecha(*this);
     return *this;
  }
 
  Fecha& Fecha::operator-=(int n){
      *this+=-n;
-     update_fecha();
+     update_fecha(*this);
      return *this;
  }  
    
-void Fecha::update_fecha(){
-
-    if (month == 2 && day==31)
+void Fecha::update_fecha(Fecha& date )const{
+    
+    if (date.month == 2 && date.day==31)
     {
-        if (year %4 &&( year % 400 || year % 100!=0))
+        if (date.year %4 &&( date.year % 400 || date.year % 100!=0))
         {
-            day=28;
+            date.day=28;
         }
         else{
-            day=29;
+            date.day=29;
         }
     }
-    if ((month == 4 || month == 6 || month == 9 || month == 11)&&(day==31))
+    if ((date.month == 4 || date.month == 6 || date.month == 9 || date.month == 11)&&(date.day==31))
     {
-        day=30;
+        date.day=30;
     }
-    
-    
 }
 
 Fecha::operator const char *()const{
