@@ -43,7 +43,7 @@ public:
     //Operadores declarados fuera para poder usar en ambos lados(excepto el =)
     Cadena& operator=(const Cadena a);
     Cadena& operator=( const char[]);
-    Cadena& operator+=(const Cadena a);
+    Cadena operator+=(const Cadena& a);
     inline  char& operator[](size_t i){
         if (i<0 || i>=tam_)
         {
@@ -77,6 +77,6 @@ public:
     
 };
 //Funciones
-Cadena operator+(Cadena& a,Cadena& b);
+Cadena operator+(const Cadena& a,const Cadena& b);
 
 #endif

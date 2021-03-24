@@ -68,17 +68,16 @@ Cadena& Cadena::operator =(const char parser_cad[]){
     }
 }
 
- Cadena& Cadena::operator +=(const Cadena a){
+ Cadena Cadena::operator +=(const Cadena& a){
     tam_= a.length()+tam_;
     std::strcat(s_,a.s_);
     return *this;
     }
     
- 
 
- Cadena operator+(Cadena& a,Cadena& b){
-    Cadena temp(a+=b);
-    return temp;
+ Cadena operator+(const Cadena& a,const Cadena& b){
+    Cadena temp(a);
+    return temp+=b;
 }
 
 Cadena Cadena::substr(size_t  inf_limit, size_t sup_lim){
