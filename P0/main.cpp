@@ -5,9 +5,8 @@
 
 
 int main(){
-     int n=1;
-     Fecha a("12/1/2000"),b;
-     a=a+12;
+     Cadena a("el"),b(" pepe");
+     a=a+b;
      cout<<a<<endl;
      return 0;
 }

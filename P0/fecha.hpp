@@ -25,7 +25,7 @@ class Fecha{
                     int error(){
                         return input;
                     };
-                    inline void what(string e)const{
+                    inline void por_que(const char* e){
                         cout<<e<<endl;
                     };
             private:
@@ -43,8 +43,19 @@ class Fecha{
         }
         void show_date()noexcept;
         //operator = usando el default
-        Fecha& operator ++();
-        Fecha& operator --();
+        Fecha& operator ++(){
+            *this+=1;
+            return *this;
+        }
+        inline Fecha operator ++(int){
+            *this+=1;
+            return  *this;
+        }
+        Fecha operator --();
+        inline Fecha& operator--(int){
+            *this+=-1;
+            return *this;
+        }
         Fecha operator +(int)const;
         Fecha operator -(int)const;
         Fecha& operator+=(int);

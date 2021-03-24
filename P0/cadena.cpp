@@ -77,7 +77,8 @@ Cadena& Cadena::operator =(const char parser_cad[]){
  
 
  Cadena operator+(Cadena& a,Cadena& b){
-    return a+=b;
+    Cadena temp(a+=b);
+    return temp;
 }
 
 Cadena Cadena::substr(size_t  inf_limit, size_t sup_lim){

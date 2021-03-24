@@ -139,15 +139,6 @@ Fecha::Fecha(const char* date){
     }
  }
 
-Fecha& Fecha::operator ++(){
-    *this+=1;
-    return *this;
-}
-
-Fecha& Fecha::operator --(){
-    *this-=1;
-    return *this;
-}
 bool operator >(Fecha a, Fecha b){
 
     if (a.anno() > b.anno())
@@ -229,25 +220,25 @@ const char* Fecha:: Fecha_check(int dd,int mm,int yy){
         Invalida er(e);
         switch(er.error()){
             case 1:
-                er.what("Se ha introducido un dia erroneo ") ; 
+                er.por_que("Se ha introducido un dia erroneo ") ; 
                 break;
             case 2:
-                er.what("Se ha introducido un mes no valido");
+                er.por_que("Se ha introducido un mes no valido");
                 break;
             case 3:
-                er.what("Se ha introducido un anno menor al anno minimo");
+                er.por_que("Se ha introducido un anno menor al anno minimo");
                 break;
             case 4:
-                er.what("Se ha introducido un anno mayor al anno maximo");
+                er.por_que("Se ha introducido un anno mayor al anno maximo");
                 break;
             case 5:
-                er.what("Se ha introducido un mes con 31 dias cuando solo tiene 30");
+                er.por_que("Se ha introducido un mes con 31 dias cuando solo tiene 30");
                 break;  
             case 6: 
-                er.what("Se ha introducido mas de 28 dias en febrero y el anno no es bisiesto");
+                er.por_que("Se ha introducido mas de 28 dias en febrero y el anno no es bisiesto");
                 break;
             case 7: 
-                er.what("febrero no tiene mas de 29 dias");
+                er.por_que("febrero no tiene mas de 29 dias");
                 break;
             default:
                 break;                      

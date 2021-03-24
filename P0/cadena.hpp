@@ -11,7 +11,7 @@ private:
     char *s_;unsigned tam_;
     class error_handler{
         public:
-            void err(){
+            void por_que(){
                 cout<<"Contruccion de la cadena es erroneo, revise los datos introducidos"<<endl;
             };
         private:
@@ -78,6 +78,5 @@ public:
 };
 //Funciones
 Cadena operator+(Cadena& a,Cadena& b);
-
 
 #endif
