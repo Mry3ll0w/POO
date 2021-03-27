@@ -1,0 +1,22 @@
+Cadena Cadena::substr(unsigned inf_limit,unsigned sup_lim){
+    if (inf_limit > sup_lim)
+    {
+        swap(inf_limit,sup_lim);
+    }
+    if (inf_limit<0 || sup_lim > tam_)
+    {
+        throw out_of_range("Se ha introducido en la funcion un indice fuera de rango");
+    }
+    else{
+        
+       Cadena a((sup_lim - inf_limit)+1);
+        size_t k =0;
+        for (size_t i = inf_limit; i < sup_lim; i++)
+        {
+            a[k]=s_[i];
+            k++;    
+        }
+        return a;
+    }
+   
+};
