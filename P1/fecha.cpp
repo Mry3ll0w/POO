@@ -79,7 +79,6 @@ const char* Fecha::cadena()const{
     mktime(&date_ctime);
     strftime(salida, 45,"%A %d, de %B del %Y",&date_ctime);
     return salida;
-    
 }
 
 Fecha::~Fecha()=default;
