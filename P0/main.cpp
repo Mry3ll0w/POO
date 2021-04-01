@@ -5,7 +5,7 @@
 
 
 int main(){
-     Fecha a(3,6,2001);
-     cout<<a<<endl;
+     Cadena a("aaa"),b;
+     a=b;
      return 0;
 }

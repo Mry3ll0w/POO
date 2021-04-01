@@ -5,7 +5,7 @@ VPATH = ../Tests-auto:.
 
 CXX = g++								  
 
-CPPFLAGS = -I../Tests-auto -I. -DP0      
+CPPFLAGS = -I../Tests-auto -I. -DP1      
 CXXFLAGS = -g -Wall -pedantic -std=c++11 -fpermissive  
 LDFFLAGS = 								
 

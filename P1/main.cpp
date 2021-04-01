@@ -5,7 +5,7 @@
 
 
 int main(){
-     Fecha a(3,6,2001),b;
+     Cadena a("hola"),b;
      
      return 0;
 }

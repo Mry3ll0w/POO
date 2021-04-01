@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 #include "cadena.hpp"
 
 Cadena::Cadena(const char c,const  size_t t)noexcept{
@@ -23,6 +24,7 @@ Cadena::Cadena(const char parser_cad[])noexcept{
 
 Cadena::Cadena(const Cadena &new_cad){
     tam_=new_cad.tam_;
+    delete []s_;
     s_=new char[new_cad.length()+1];
     std::strcpy(s_,new_cad.s_);
 }
@@ -40,7 +42,7 @@ Cadena::~Cadena(){
 }
 //Funciones/operadores
  
- Cadena& Cadena::operator=(const Cadena a){
+Cadena& Cadena::operator=(const Cadena a){
      if (std::strcmp(a.s_,s_)==0)
     {
         return *this;

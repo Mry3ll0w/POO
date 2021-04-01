@@ -1,6 +1,6 @@
 #ifndef CADENA_HPP
 #define CADENA_HPP
-
+#include<vector>
 #include <iostream>
 #include <cstring>
 using namespace std;
@@ -27,6 +27,11 @@ public:
     ~Cadena();
     operator const char*() const{
         return s_;
+    }
+    Cadena(Cadena&&c){
+        c.tam_=0;
+        c.s_=nullptr;//No termino de entender para que se hace
+        cout<<"Se llama al constructor de movimiento"<<endl;
     }
     //Funciones 
     inline unsigned length()const noexcept{
@@ -73,10 +78,29 @@ public:
     inline bool operator <=(Cadena a){
         return (*this < a)||(*this == a);
     };   
+//iteradores P1///
+typedef char* iterator;
+typedef const char* const_iterator;
+typedef std::reverse_iterator<iterator>reverse_iterator;
+typedef std::reverse_iterator<const_iterator>const_reverse_iterator;
+//Funciones de los distintos con iteradores (p1)
+iterator begin()noexcept{
+    return s_;
+}
+const_iterator begin() const noexcept{return s_;}//begin puede devolver const o no const segun el tipo cbign siempre const
+const_iterator cbegin() const noexcept{return s_;}
+iterator end()noexcept{return s_+tam_;}
+const_iterator end()noexcept const{return const_iterator(s_+tam_);}
+const_iterator cend()noexcept const{return const_iterator(s_+tam_);}
+const_iterator end()noexcept const{return const_iterator(s_+tam_);}
+reverse_iterator rbegin()noexcept{return reverse_iterator(s_+tam_);}//usamos reverse it para convertir de char* a reverser_it
+reverse_iterator rend()noexcept{return reverse_iterator(s_);}
+const_reverse_iterator rend()noexcept const{return const_reverse_iterator(s_);}
+const_reverse_iterator crend()noexcept const{return const_reverse_iterator(s_);}
 
-    
 };
 //Funciones
 Cadena operator+(const Cadena& a,const Cadena& b);
+
 
 #endif
