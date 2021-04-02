@@ -43,7 +43,9 @@ public:
     Cadena substr(size_t, size_t);
     const char& at(size_t)const;
     char& at(size_t);
-
+    const char* c_str()const noexcept{
+        return s_;
+    }
 
     //Operadores declarados fuera para poder usar en ambos lados(excepto el =)
     Cadena& operator=(const Cadena a);
@@ -87,16 +89,47 @@ typedef std::reverse_iterator<const_iterator>const_reverse_iterator;
 iterator begin()noexcept{
     return s_;
 }
-const_iterator begin() const noexcept{return s_;}//begin puede devolver const o no const segun el tipo cbign siempre const
-const_iterator cbegin() const noexcept{return s_;}
-iterator end()noexcept{return s_+tam_;}
-const_iterator end()noexcept const{return const_iterator(s_+tam_);}
-const_iterator cend()noexcept const{return const_iterator(s_+tam_);}
-const_iterator end()noexcept const{return const_iterator(s_+tam_);}
-reverse_iterator rbegin()noexcept{return reverse_iterator(s_+tam_);}//usamos reverse it para convertir de char* a reverser_it
-reverse_iterator rend()noexcept{return reverse_iterator(s_);}
-const_reverse_iterator rend()noexcept const{return const_reverse_iterator(s_);}
-const_reverse_iterator crend()noexcept const{return const_reverse_iterator(s_);}
+const_iterator begin() const noexcept{
+    return s_;
+}//begin puede devolver const o no const segun el tipo cbign siempre const
+const_iterator cbegin() const noexcept{
+    return s_;
+}
+const_reverse_iterator crbegin()const noexcept{return const_reverse_iterator(end());}
+iterator end()noexcept{
+    return s_+tam_;
+};
+const_iterator cend()const noexcept{
+    return const_iterator(s_+tam_);
+}
+const_iterator end()const noexcept{
+    return const_iterator(s_+tam_);
+}
+reverse_iterator rbegin()noexcept{
+    return reverse_iterator(s_+tam_);
+}//usamos reverse it para convertir de char* a reverser_it
+reverse_iterator rend()noexcept{
+    return reverse_iterator(s_);
+}
+const_reverse_iterator rend()const noexcept{
+    return const_reverse_iterator(s_);
+}
+const_reverse_iterator crend()const noexcept{
+    return const_reverse_iterator(s_);
+}
+//P1 OPERADORES DE SALIDA/ENTRADA
+friend ostream& operator<<(std::ostream& salida,const Cadena& cad)noexcept{
+    salida<<cad.c_str();
+    return salida;
+}
+friend istream& operator >> (std::istream& sal, Cadena& cad)noexcept{
+    char str[33]="";
+    sal.width(33);
+    sal>> str;
+    cad = str;
+    return sal;
+
+}
 
 };
 //Funciones

@@ -6,6 +6,8 @@
 
 int main(){
      Cadena a("hola"),b;
-     
+     a="adios";
+     cin>>a;
+     cout<<a;
      return 0;
 }
