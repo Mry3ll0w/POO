@@ -68,7 +68,7 @@ class Fecha{
 
     private:
 
-        int day,month,year;
+        int day=0,month=0,year=0;
         const char* month_selector(int month);
         const char* Fecha_check(int dd ,int mm,int yy);
         void update_fecha(Fecha&)const ;

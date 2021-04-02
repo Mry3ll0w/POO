@@ -8,7 +8,7 @@ class Cadena
 {
 private:
     int error_parser(const char [],unsigned);
-    char *s_;unsigned tam_;
+    char *s_;unsigned tam_=0;
     class error_handler{
         public:
             void por_que(){
