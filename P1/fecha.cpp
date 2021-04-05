@@ -269,7 +269,12 @@ std::istream& operator >> (std::istream& input, Fecha& date){
     char* temp_cad=new char[11];//10+1
     input>>temp_cad;
     Fecha temp_date(temp_cad);
-    date = temp_date;
     delete temp_cad;
+    if (strcmp(date.Fecha_check(date.dia(),date.mes(),date.anno()),"ok")==0)
+    {
+        date = temp_date;
+    }else{
+        exit;
+    }
     return input;
 }

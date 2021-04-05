@@ -86,35 +86,37 @@ typedef const char* const_iterator;
 typedef std::reverse_iterator<iterator>reverse_iterator;
 typedef std::reverse_iterator<const_iterator>const_reverse_iterator;
 //Funciones de los distintos con iteradores (p1)
-iterator begin()noexcept{
+inline iterator begin()noexcept{
     return s_;
 }
-const_iterator begin() const noexcept{
+inline const_iterator begin() const noexcept{
     return s_;
 }//begin puede devolver const o no const segun el tipo cbign siempre const
-const_iterator cbegin() const noexcept{
+inline const_iterator cbegin() const noexcept{
     return s_;
 }
-const_reverse_iterator crbegin()const noexcept{return const_reverse_iterator(end());}
-iterator end()noexcept{
+inline const_reverse_iterator crbegin()const noexcept{
+    return const_reverse_iterator(end());
+}
+inline iterator end()noexcept{
     return s_+tam_;
 };
-const_iterator cend()const noexcept{
+inline const_iterator cend()const noexcept{
     return const_iterator(s_+tam_);
 }
-const_iterator end()const noexcept{
+inline const_iterator end()const noexcept{
     return const_iterator(s_+tam_);
 }
-reverse_iterator rbegin()noexcept{
+inline reverse_iterator rbegin()noexcept{
     return reverse_iterator(s_+tam_);
 }//usamos reverse it para convertir de char* a reverser_it
-reverse_iterator rend()noexcept{
+inline reverse_iterator rend()noexcept{
     return reverse_iterator(s_);
 }
-const_reverse_iterator rend()const noexcept{
+inline const_reverse_iterator rend()const noexcept{
     return const_reverse_iterator(s_);
 }
-const_reverse_iterator crend()const noexcept{
+inline const_reverse_iterator crend()const noexcept{
     return const_reverse_iterator(s_);
 }
 //P1 OPERADORES DE SALIDA/ENTRADA
@@ -128,7 +130,6 @@ friend istream& operator >> (std::istream& sal, Cadena& cad)noexcept{
     sal>> str;
     cad = str;
     return sal;
-
 }
 
 };
