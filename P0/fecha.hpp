@@ -14,9 +14,7 @@ class Fecha{
         static const int  AnnoMinimo=1902;
         static const int AnnoMaximo=2037;
         //Constructs
-        explicit Fecha(int d, int m, int y);
-        explicit Fecha(int d,int m);
-        explicit Fecha(int d);
+        explicit Fecha(int d=0, int m=0, int y=0);
         Fecha(const char* date);
         operator const char*()const;
         class Invalida{
@@ -28,7 +26,6 @@ class Fecha{
             private:
                 const char* input;
         };
-        Fecha();
         int dia()const noexcept{
             return day;
         }

@@ -1,15 +1,25 @@
 #include "fecha.hpp"
 #include <ctime>
-Fecha::Fecha(int d,int m,int y):day(d),month(m),year(y){
-    
-    if (day == 0 && month ==0 && year==0)
-    {
-        Fecha aux;
-        this->day=aux.dia();
-        this->month=aux.mes();
-        this->year=aux.anno();
-    }
-    if (strcmp(Fecha_check(d,m,year),"ok")==0){
+Fecha::Fecha(int d,int m,int y){
+        time_t tt;
+        time(&tt);
+        tm TM = *localtime(&tt);
+        int tday= TM.tm_mday;
+        int tmonth = TM.tm_mon+1;
+        int tyear = TM.tm_year + 1900;
+        if (d==0)
+        {
+            d =tday;
+        }
+        if (m==0)
+        {
+            m = tmonth;
+        }
+        if (y==0)
+        {
+            y = tyear;
+        }
+    if (strcmp(Fecha_check(d,m,y),"ok")==0){
         day=d;
         month=m;
         year=y;
@@ -17,58 +27,6 @@ Fecha::Fecha(int d,int m,int y):day(d),month(m),year(y){
     
             
 };
-
-Fecha::Fecha(int d,int m):day(d),month(m){
-    if (day == 0 && month ==0)
-    {
-        Fecha aux;
-        this->day=aux.dia();
-        this->month=aux.mes();
-        this->year=aux.anno();
-    }
-    time_t tt;
-    time(&tt);
-    tm TM = *localtime(&tt);
-    year = TM.tm_year + 1900;
-    if (strcmp(Fecha_check(d,m,year),"ok")==0)
-    {
-        day=d;
-        month = m;
-    }
-    
-    
-}
-
-Fecha::Fecha(int d):day(d){
-    if (day == 0 )
-    {
-        Fecha aux;
-        this->day=aux.dia();
-        this->month=aux.mes();
-        this->year=aux.anno();
-    }
-    
-    time_t tt;
-    time(&tt);
-    tm TM = *localtime(&tt);
-    month = TM.tm_mon+1;
-    year = TM.tm_year + 1900;
-    if (strcmp(Fecha_check(d,month,year),"ok")==0)
-    {
-        day=d;
-    }
-    
-    
-}
-
-Fecha::Fecha(){
-    time_t tt;
-    time(&tt);
-    tm TM = *localtime(&tt);
-    day= TM.tm_mday;
-    month = TM.tm_mon+1;
-    year = TM.tm_year + 1900;
-}
 
 Fecha::~Fecha()=default;
 

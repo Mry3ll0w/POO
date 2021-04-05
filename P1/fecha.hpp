@@ -14,9 +14,9 @@ class Fecha{
         static const int  AnnoMinimo=1902;
         static const int AnnoMaximo=2037;
         //Constructores
-        explicit Fecha(int d, int m, int y);
-        explicit Fecha(int d,int m);
-        explicit Fecha(int d);
+        explicit Fecha(int d=0, int m=0, int y=0);
+        //explicit Fecha(int d,int m);
+        //explicit Fecha(int d);
         Fecha(const char* date);
         const char* cadena()const;
         //Clase de excepcion
@@ -29,7 +29,6 @@ class Fecha{
             private:
                 const char* input;
         };
-        Fecha();
         int dia()const noexcept{
             return day;
         }
