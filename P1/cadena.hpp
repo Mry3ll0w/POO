@@ -25,7 +25,7 @@ public:
     explicit Cadena()noexcept;
     Cadena(const Cadena &new_cad); 
     ~Cadena();
-    operator const char*() const{
+    explicit operator const char*() const{
         return s_;
     }
     Cadena(Cadena&&c){
@@ -59,27 +59,7 @@ public:
         else
             return s_[i];
     };
-    inline bool operator ==(Cadena a){
-        return !strcmp(this->s_,a.s_);
-    }
-    inline bool operator!=(Cadena a){
-        return !(*this==a);
-    }
-    inline bool operator >(Cadena a){
-        if (this->tam_ > a.tam_)
-            return true;
-        else
-            return false;
-    };
-    inline bool operator <(Cadena a){
-        return !(*this > a);
-    };
-    inline bool operator >=(Cadena a){
-        return (*this > a)||(*this==a);
-    };
-    inline bool operator <=(Cadena a){
-        return (*this < a)||(*this == a);
-    };   
+      
 //iteradores P1///
 typedef char* iterator;
 typedef const char* const_iterator;
@@ -133,8 +113,28 @@ friend istream& operator >> (std::istream& sal, Cadena& cad)noexcept{
 }
 
 };
-//Funciones
+//Funciones y operadores
 Cadena operator+(const Cadena& a,const Cadena& b);
-
+inline bool operator ==(Cadena a,Cadena b){
+        return !strcmp(a.c_str(),b.c_str());
+    }
+    inline bool operator!=(Cadena a,Cadena b){
+        return !(a.c_str(),b.c_str());
+    }
+    inline bool operator >(Cadena a,Cadena b){
+        if (a.length()> b.length())
+            return true;
+        else
+            return false;
+    }
+    inline bool operator <(Cadena a,Cadena b){
+        return !(a > b);
+    }
+    inline bool operator >=(Cadena a,Cadena b){
+        return (a > b)||(a==b);
+    }
+    inline bool operator <=(Cadena a, Cadena b){
+        return (a < b)||(a == b);
+    } 
 
 #endif

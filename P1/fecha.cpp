@@ -25,7 +25,7 @@ Fecha::Fecha(int d,int m,int y){
         year=y;
     }
     
-};
+}
 
 //////////////////////////////////////////////////////////////////////CONSTRUCTOR DE CONVERSION \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\/
 const char* Fecha::cadena()const{
@@ -231,8 +231,6 @@ std::istream& operator >> (std::istream& input, Fecha& date){
     if (strcmp(date.Fecha_check(date.dia(),date.mes(),date.anno()),"ok")==0)
     {
         date = temp_date;
-    }else{
-        exit;
     }
     return input;
 }
