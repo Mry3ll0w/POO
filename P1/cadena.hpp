@@ -121,12 +121,24 @@ inline bool operator ==(Cadena a,Cadena b){
     inline bool operator!=(Cadena a,Cadena b){
         return !(a.c_str(),b.c_str());
     }
-    inline bool operator >(Cadena a,Cadena b){
-        if (a.length()> b.length())
+    inline bool operator >(const Cadena& a,const Cadena& b){
+        //Si una cadena tiene sus caracteres mas grandes que otra==> suma de sus caracteres en ascii sera mayor que la otra
+        int car_a=0,car_b=0;
+        for (size_t i = 0; i < a.length(); i++)
+        {
+            car_a+=int(a.at(i));
+        }
+        for (size_t i = 0; i < b.length(); i++)
+        {
+            car_b+=int(b.at(i));
+        }
+        if (car_a> car_b)
             return true;
         else
             return false;
     }
+
+
     inline bool operator <(Cadena a,Cadena b){
         return !(a > b);
     }

@@ -1,6 +1,5 @@
 #ifndef Fecha_HPP
 #define Fecha_HPP
-#include "cadena.hpp"
 #include <iostream>
 #include <cstring>
 #include <ctime>
@@ -76,6 +75,7 @@ class Fecha{
         void update_fecha(Fecha&)const ;
 
 };
+
 inline bool operator == (Fecha a,Fecha b){
     return (a.dia()==b.dia() && a.mes()==b.mes() && a.anno()==b.anno() );
 }

@@ -5,8 +5,13 @@
 
 
 int main(){
-     Fecha a,b(3);
-     cout<<a<<endl;
-     cout<<b<<endl;
+     Cadena a="XXX",b="xxx";
+     if (a>b)
+     {
+          cout<<"a";
+     }
+     else{
+          cout<<"b";
+     }
      return 0;
 }

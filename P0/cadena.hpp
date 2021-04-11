@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <cstring>
+#include <algorithm>
 using namespace std;
 class Cadena
 {
@@ -59,7 +60,18 @@ public:
         return !(*this==a);
     }
     inline bool operator >(Cadena a){
-        if (this->tam_ > a.tam_)
+        //Si una cadena tiene sus caracteres mas grandes que otra==> suma de sus caracteres en ascii sera mayor que la otra
+        int car_this=0,car_a=0;
+        for (size_t i = 0; i < this->tam_; i++)
+        {
+            car_this+=int(this->s_[i]);
+        }
+        for (size_t i = 0; i < a.tam_; i++)
+        {
+            car_a+=int(a.s_[i]);
+        }
+        
+        if (car_this> car_a)
             return true;
         else
             return false;
