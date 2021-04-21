@@ -19,6 +19,8 @@ int main(int argc, char const *argv[])
 
 	Articulo a("0001","magia borras","00/00/0000",3.45,1);
 	cout<<a<<endl;
+	Clave b("elpepe");
+	cout<<b.verifica("elpepe")<<endl;
 	return 0;
 }
 

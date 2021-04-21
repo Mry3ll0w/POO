@@ -2,7 +2,12 @@
 #define USUARIO_H
 #include "cadena.hpp"
 #include "fecha.hpp"
-
+#include <random>
+#include <crypt.h>
+#include <map>
+#include <unordered_map>
+#include <unordered_set>
+#include <unistd.h>
 class Clave
 {
 private:
@@ -24,7 +29,7 @@ public:
         Razon razon(Razon a){return r;}   
     };
 
-
+    bool verifica(const char*)const;
     Clave(const char*);
     const char* clave(){return clave_cifrada.c_str();}
 };
