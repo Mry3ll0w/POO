@@ -12,7 +12,7 @@ LDFFLAGS =
 all: test-P0-auto test-P0-consola
 
 test-P0-auto: test-caso0-fecha-auto.o test-caso0-cadena-auto.o \
-			  test-auto.o cadena.o fecha.o #el \ sirve para que siga leyendo abajo
+			  test-auto.o cadena.o fecha.o 
 	$(CXX) -o $@ $(LDFLAGS) $^
 
 test-caso0-fecha-auto.o test-caso0-cadena-auto.o test-auto.o: \

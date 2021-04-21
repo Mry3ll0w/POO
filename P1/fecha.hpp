@@ -14,8 +14,6 @@ class Fecha{
         static const int AnnoMaximo=2037;
         //Constructores
         explicit Fecha(int d=0, int m=0, int y=0);
-        //explicit Fecha(int d,int m);
-        //explicit Fecha(int d);
         Fecha(const char* date);
         const char* cadena()const;
         //Clase de excepcion
@@ -41,22 +39,18 @@ class Fecha{
     
         Fecha& operator ++(){
             *this+=1;
-            update_fecha(*this);
             return *this;
         }
         inline Fecha operator ++(int){
             *this+=1;
-            update_fecha(*this);
             return  *this;
         }
         Fecha operator --(){
             *this+=-1;
-            update_fecha(*this);
             return *this;
         }
         inline Fecha& operator--(int){
             *this+=-1;
-            update_fecha(*this);
             return *this;
         }
         Fecha operator +(int)const;
@@ -71,8 +65,7 @@ class Fecha{
 
         int day,month,year;
         const char* month_selector(int month);
-        const char* Fecha_check(int dd ,int mm,int yy);
-        void update_fecha(Fecha&)const ;
+        void Fecha_check(int dd ,int mm,int yy);
 
 };
 

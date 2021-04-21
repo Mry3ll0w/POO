@@ -1,8 +1,8 @@
 #include <iostream>
 #include <vector>
+#include <stdexcept>
 #include "cadena.hpp"
-
-Cadena::Cadena(const char c,const  size_t t)noexcept{
+Cadena::Cadena(const  size_t t,const char c)noexcept{
     s_=new char[t+1];
     for (size_t i = 0; i < t; i++)
     {
@@ -20,11 +20,14 @@ Cadena::Cadena(const char parser_cad[])noexcept{
  Cadena::Cadena(const size_t size)noexcept{
     tam_=size;
     s_=new char[tam_+1];
+    for (size_t i = 0; i < tam_; i++)
+    {
+        s_[i]=' ';
+    }
 }
 
 Cadena::Cadena(const Cadena &new_cad){
     tam_=new_cad.tam_;
-    delete []s_;
     s_=new char[new_cad.length()+1];
     std::strcpy(s_,new_cad.s_);
 }
@@ -32,17 +35,15 @@ Cadena::Cadena(const Cadena &new_cad){
 Cadena::Cadena()noexcept{
     tam_=0;
     s_=new char[2];
-    std::strcpy(s_," ");
+    strcpy(s_,"");
 }
-
 //Destructor
 Cadena::~Cadena(){
-    delete []s_;
-    tam_=0;
+    delete[] s_ ;
 }
 //Funciones/operadores
  
-Cadena& Cadena::operator=(const Cadena a){
+Cadena& Cadena::operator=(const Cadena& a){
      if (std::strcmp(a.s_,s_)==0)
     {
         return *this;
@@ -56,6 +57,7 @@ Cadena& Cadena::operator=(const Cadena a){
     }
    
  }
+ 
 Cadena& Cadena::operator =(const char parser_cad[]){
     if (std::strcmp(parser_cad,s_)==0)
     {
@@ -74,7 +76,7 @@ Cadena& Cadena::operator =(const char parser_cad[]){
     tam_= a.length()+tam_;
     std::strcat(s_,a.s_);
     return *this;
-    }
+}
     
 
  Cadena operator+(const Cadena& a,const Cadena& b){
@@ -82,29 +84,30 @@ Cadena& Cadena::operator =(const char parser_cad[]){
     return temp+=b;
 }
 
-Cadena Cadena::substr(size_t  inf_limit, size_t sup_lim){
+Cadena Cadena::substr(size_t  inf_limit, size_t sup_lim)const{
       if (inf_limit > sup_lim)
     {
         swap(inf_limit,sup_lim);
     }
-    if (inf_limit<0 || sup_lim > tam_)
-    {
-        throw out_of_range("Se ha introducido en la funcion un indice fuera de rango");
-    }
+    size_t limite = inf_limit + sup_lim ; 
+	if(limite >= length() || inf_limit > length() || limite < inf_limit)
+	{
+		throw std::out_of_range("Error.Fuera del rango") ; 
+	}
     else{
-        
-       Cadena a((sup_lim - inf_limit)+1);
+        char* parser_str=new char[(sup_lim - inf_limit)+1];
         size_t k =0;
         for (size_t i = inf_limit; i < sup_lim; i++)
         {
-            a[k]=s_[i];
+            parser_str[k]=s_[i];
             k++;    
         }
-        return a;
+        
+        return parser_str;
     }
 }
-const char& Cadena::at(size_t i)const{
-    if (i<0 || i>=tam_)
+ char Cadena::at(size_t i)const{
+    if (i>=tam_)
         {
             throw std::out_of_range("Se ha introducido un valor fuera de rango");   
         }
@@ -113,7 +116,7 @@ const char& Cadena::at(size_t i)const{
 }
 
 char & Cadena::at(size_t i){
-    if (i<0 || i>=tam_)
+    if (i >= tam_)
         {
             throw std::out_of_range("Se ha introducido un valor fuera de rango");   
         }

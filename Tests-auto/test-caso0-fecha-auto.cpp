@@ -615,7 +615,7 @@ FCTMF_FIXTURE_SUITE_BGN(test_fecha) {
       istringstream is("007/007/1997");
       Fecha f;
       try {
-	is >> f;
+	    is >> f;
         fct_chk(!"Se esperaba una excepción Fecha::Invalida");
       }
       catch(Fecha::Invalida) {

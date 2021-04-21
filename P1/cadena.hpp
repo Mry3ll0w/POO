@@ -19,19 +19,16 @@ private:
     };
 public:
     //Constructores
-    Cadena(const char, const size_t)noexcept;
+    Cadena(const size_t,char )noexcept;
     Cadena(const char[])noexcept;
     explicit Cadena(const size_t)noexcept;
     explicit Cadena()noexcept;
-    Cadena(const Cadena &new_cad); 
+    Cadena(const Cadena& new_cad); 
     ~Cadena();
-    explicit operator const char*() const{
-        return s_;
-    }
-    Cadena(Cadena&&c){
+
+    Cadena(Cadena&&c):s_(c.s_),tam_(c.tam_){
         c.tam_=0;
-        c.s_=nullptr;//No termino de entender para que se hace
-        cout<<"Se llama al constructor de movimiento"<<endl;
+        c.s_=nullptr;
     }
     //Funciones 
     inline unsigned length()const noexcept{
@@ -40,25 +37,29 @@ public:
     inline void show()noexcept{
         cout<<s_<<endl;
     };
-    Cadena substr(size_t, size_t);
-    const char& at(size_t)const;
+    Cadena substr(size_t, size_t)const;
+    char at(size_t)const;
     char& at(size_t);
     const char* c_str()const noexcept{
         return s_;
     }
 
     //Operadores declarados fuera para poder usar en ambos lados(excepto el =)
-    Cadena& operator=(const Cadena a);
-    Cadena& operator=( const char[]);
+    Cadena& operator=(const Cadena& a);
+    Cadena& operator=( const char[] );
+    Cadena& operator =(Cadena&& a){
+        s_=a.s_;
+        tam_=a.tam_;
+        a.tam_=0;a.s_=nullptr;
+        return *this;
+    }
     Cadena operator+=(const Cadena& a);
-    inline  char& operator[](size_t i){
-        if (i<0 || i>=tam_)
-        {
-            throw std::out_of_range("Se ha introducido un valor fuera de rango");   
-        }
-        else
+    inline  char& operator[](size_t i)noexcept{
             return s_[i];
     };
+    inline char operator[](size_t i)const noexcept {
+        return s_[i];
+    }
       
 //iteradores P1///
 typedef char* iterator;
@@ -115,6 +116,15 @@ friend istream& operator >> (std::istream& sal, Cadena& cad)noexcept{
 };
 //Funciones y operadores
 Cadena operator+(const Cadena& a,const Cadena& b);
+<<<<<<< HEAD
+inline bool operator ==(const Cadena& a,const Cadena& b){
+        return strcmp(a.c_str(),b.c_str())==0;
+}
+inline bool operator!=(const Cadena& a,const Cadena& b){
+        return !(a==b);
+}
+inline bool operator >(const Cadena& a,const Cadena& b){
+=======
 inline bool operator ==(Cadena a,Cadena b){
         return !strcmp(a.c_str(),b.c_str());
     }
@@ -122,6 +132,7 @@ inline bool operator ==(Cadena a,Cadena b){
         return !(a.c_str(),b.c_str());
     }
     inline bool operator >(const Cadena& a,const Cadena& b){
+>>>>>>> main
         //Si una cadena tiene sus caracteres mas grandes que otra==> suma de sus caracteres en ascii sera mayor que la otra
         int car_a=0,car_b=0;
         for (size_t i = 0; i < a.length(); i++)
@@ -136,6 +147,10 @@ inline bool operator ==(Cadena a,Cadena b){
             return true;
         else
             return false;
+<<<<<<< HEAD
+}
+inline bool operator >=(Cadena a,Cadena b){
+=======
     }
 
 
@@ -143,10 +158,14 @@ inline bool operator ==(Cadena a,Cadena b){
         return !(a > b);
     }
     inline bool operator >=(Cadena a,Cadena b){
+>>>>>>> main
         return (a > b)||(a==b);
-    }
-    inline bool operator <=(Cadena a, Cadena b){
-        return (a < b)||(a == b);
+}
+inline bool operator <(Cadena a,Cadena b){
+        return !(a >= b);
+}
+inline bool operator <=(Cadena a, Cadena b){
+        return !(a>b);
     } 
 
 #endif

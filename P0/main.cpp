@@ -5,6 +5,10 @@
 
 
 int main(){
+<<<<<<< HEAD
+     Cadena a('a',4),b="xxx";
+     cout<<a<<endl;
+=======
      Cadena a="XXX",b="xxx";
      if (a>b)
      {
@@ -13,5 +17,6 @@ int main(){
      else{
           cout<<"b";
      }
+>>>>>>> main
      return 0;
 }

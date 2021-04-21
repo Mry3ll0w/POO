@@ -26,7 +26,7 @@ Fecha::Fecha(int d,int m,int y){
     }
     
             
-};
+}
 
 Fecha::~Fecha()=default;
 
