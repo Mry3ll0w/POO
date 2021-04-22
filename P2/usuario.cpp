@@ -30,3 +30,25 @@ bool Clave::verifica(const char* a)const{
     return v == clave_cifrada;
 }
 
+
+///////////////////////////////////////////////////CLASE USUARIO/////////////////////////////////////////////
+
+
+Usuario::Usuario(const char* id,const char* nombre, const char* apellidos, const char* direccion, const char* clave)
+    : identficador_(Cadena(id)),
+      nombre_(Cadena(nombre)),
+      apellidos_(Cadena(apellidos)),
+      direccion_(Cadena(direccion)),
+      pass_(Clave(clave).clave())
+{
+    if (identificadores.insert(&identficador_).second==false)
+	{
+		throw Id_duplicado(identficador_);//Este user ya existe
+	}
+    
+}
+
+
+
+
+

@@ -1,6 +1,8 @@
 #ifndef USUARIO_H
 #define USUARIO_H
 #include "cadena.hpp"
+#include "articulo.hpp"
+#include "tarjeta.hpp"
 #include "fecha.hpp"
 #include <random>
 #include <crypt.h>
@@ -8,6 +10,8 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <unistd.h>
+
+//Clase CLAVE
 class Clave
 {
 private:
@@ -33,13 +37,49 @@ public:
     Clave(const char*);
     const char* clave(){return clave_cifrada.c_str();}
 };
+
+//CLASE USUARIO
 class Usuario
 {
 private:
-    /* data */
+    Cadena identficador_;
+    Cadena nombre_;
+    Cadena apellidos_;
+    Cadena direccion_;
+    Cadena pass_;
+    std::unordered_set<Cadena*>identificadores;
+    typedef std::unordered_map<Articulo*,unsigned int>art;
+    
 public:
-    Usuario(/* args */);
+    //CONSTRUCTORES
+    Usuario(const char* id,const char* nombre, const char* apellidos, const char* direccion, const char* clave);
+    Usuario(const Usuario& )=delete;
+    Usuario& operator=(const Usuario)=delete;
     ~Usuario();
+
+    //RELACIONES ENTRE TARJETA + ARTICULO
+    
+    //std::map<Numero,Tarjeta*> Tarjetas;
+    std::unordered_map<Articulo*,unsigned int>Articulos;
+    
+    //Manejo de excepciones
+    class Id_duplicado
+    {
+    private:
+        Cadena id;
+    public:
+        Id_duplicado(const Cadena&a):id(a){}
+        const Cadena idd()const{return id;}
+    };
+    //Metodos Observadores 
+    const Cadena id()const{return identficador_;}
+    const Cadena nombre()const{return nombre_;}
+    const Cadena apellidos()const{return apellidos_;}
+    const Cadena direccion()const{return direccion_;}
+    //const std::unordered_set<Tarjeta> tarjetas()const{return Tarjetas;}
+    //observador de compra ???
+    // INCOMPLETO
+
 };
 
 
