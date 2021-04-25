@@ -1,5 +1,5 @@
 #include "tarjeta.hpp"
-
+#include "usuario.hpp"
 /* ----------------- Algoritmo de luhn para la verificacion ----------------- */
 
 bool alg_luhn(const char *numero) {
@@ -71,13 +71,57 @@ bool operator <(const Numero& a, const Numero& b) {
 	return strcmp(a,b)<0;
 }
 
+/* ------------------------------ clase tarjeta ----------------------------- */
+
+
 Tarjeta::Tarjeta(const char* numero, Usuario& user,const char* fecha_caducidad)
     : numero_(Numero(numero)),
-      titular(&user),
-      caducidad(Fecha(fecha_caducidad)),
-      activa(true)
+      titular_(&user),
+      caducidad_(Fecha(fecha_caducidad)),
+      activa_(true)
 {
+
+/* ------------------------ La tarjeta esta duplicada ----------------------- */
+
+    if (Tarjetas.insert(this).second==false)
+    {
+        throw Tarjeta::Num_duplicado(numero_);
+    }
     
+/* ------------------------- La tarjeta esta Caducada ------------------------ */
+    if (caducidad_ >=Fecha())//Si la fecha de caducidad es mayor o igual que la actual entonces esta caducada
+    {
+        throw Tarjeta::Caducada(caducidad_);
+    }
+
 }
+
+const Tarjeta::Tipo Tarjeta::tipo(){
+    Cadena aux_tipo =numero_.numero();
+    if (aux_tipo[0]=='3')
+    {
+        if (aux_tipo[1]=='4'||aux_tipo[1]=='7')
+        {
+            return AmericanExpress;
+        }
+        else{
+            return JCB;
+        } 
+    }
+    else if(aux_tipo[0]=='4'){
+        return VISA;
+    }
+    else if(aux_tipo[0]=='5'){
+        return Mastercard;
+    }
+    else if (aux_tipo[0]=='6')
+    {
+        return Maestro;
+    }
+    else
+        return Otro;
+}
+
+
 
 

@@ -2,15 +2,16 @@
 #define TARJETA_H
 #include "cadena.hpp"
 #include "usuario.hpp"
-#include "fecha.hpp"`
+#include "fecha.hpp"
 #include <set>
 
+class Usuario;
 class Numero
 {
 public:
 	//CONSTRUCTORES
 	Numero(const char* n);
-	~Numero();
+	const char* numero()const{return numero_.c_str();}
 	operator const char*()const{return numero_.c_str();}
 	//Excepciones
 	enum Razon{LONGITUD,DIGITOS,NO_VALIDO};
@@ -36,15 +37,51 @@ private:
 class Tarjeta
 {
 public:
-    enum Tipo{Ctro,VISA,Mastercard,Maestro,JCB,AmericanExpress};
+
+    enum Tipo{Otro,VISA,Mastercard,Maestro,JCB,AmericanExpress};
 	Tarjeta(const char* numero, Usuario& user,const char* fecha_caducidad);
-	~Tarjeta();
+    const Fecha cuando ()const{return caducidad_;}
+    void anular_titular(){titular_=nullptr;activa_=false;}
+    void no_es_titular(){anular_titular();}//Solicitada por el enunciado, aunque anular titular lo hace 
+/* ------------------- Clases para el manejo de excepciones ------------------ */
+    class Caducada
+    {
+    private:
+        Fecha f_caducada;
+    public:
+        Caducada(const Fecha& f_):f_caducada(f_){};
+        const Fecha& cuando()const {return f_caducada;}   
+    };
+    class Num_duplicado{
+        public:
+            Num_duplicado(const Numero& n_):n(n_){};
+            const Numero& que()const{return n;}
+        private:
+            Numero n;
+    };
+    class Desactivada{
+        private:
+        public:
+            Desactivada(){}
+    };
+    Tarjeta(Tarjeta&)=delete;
+/* ------------------------------ observadores ------------------------------ */
+    const Numero& numero()const{return numero_;}
+    const Usuario& titular()const{ return *titular_; }
+    const Fecha& caducidad()const{ return caducidad_;}
+    const bool activa()const{return activa_;}
+    bool& activa(){return activa_;}
+    const Tipo tipo();
+	~Tarjeta(){
+        if (activa_==true||titular_!=nullptr){no_es_titular();}
+    };
 private:
     Numero numero_;
-    Usuario* titular;
-    Fecha caducidad;
-    bool activa;
-    std::set<Tarjeta*>tarjetas;
+    Usuario* titular_;
+    Fecha caducidad_;
+    bool activa_;
+    std::set<Tarjeta*>Tarjetas;
+    
 };
 
 bool alg_luhn(const char *numero);
