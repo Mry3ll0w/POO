@@ -8,6 +8,8 @@
 
 using namespace std;
 
+/* ------------------------------- CLASE CLAVE ------------------------------ */
+
 Clave::Clave(const char* input){
     //Excepcion de clave demasiado corta
     if (strlen(input)<5){throw Clave::CORTA;}
@@ -31,7 +33,7 @@ bool Clave::verifica(const char* a)const{
 }
 
 
-///////////////////////////////////////////////////CLASE USUARIO/////////////////////////////////////////////
+/* ------------------------------ CLASE USUARIO ----------------------------- */
 
 
 Usuario::Usuario(const char* id,const char* nombre, const char* apellidos, const char* direccion, const char* clave)

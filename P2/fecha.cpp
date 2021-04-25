@@ -23,8 +23,8 @@ Fecha::Fecha(int d,int m,int y){
     day=d;
     month=m;
     year=y;
-    
-    
+
+
 }
 
 //////////////////////////////////////////////////////////////////////CONSTRUCTOR DE CONVERSION \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\/
@@ -44,7 +44,7 @@ Fecha::~Fecha()=default;
 
 const char* Fecha::month_selector(int m){
         switch(m){
-            case 1: 
+            case 1:
                 return "Enero";
                 break;
             case 2:
@@ -82,7 +82,7 @@ const char* Fecha::month_selector(int m){
                 break;
             default:
                 return "ERROR";
-                break;    
+                break;
         }
 }
 
@@ -93,7 +93,7 @@ void Fecha::show_date()noexcept{
 
 
 Fecha::Fecha(const char date[11]){//EN CONSTRUCCION
-    
+
     sscanf(date, "%d/%d/%d", &day, &month, &year);
     *this = Fecha(day,month,year);
    /* FALLA EN EL THROW y para poder compilar el resto de test sin core dump  lo he comentado
@@ -101,13 +101,13 @@ Fecha::Fecha(const char date[11]){//EN CONSTRUCCION
     if(sscanf(date, "%d/%d/%d", &dia_, &mes_, &anno_) != 3)
         throw Invalida("fecha incorrecta");
     else{
-        
+
         day = dia_;
         month = mes_;
         year = anno_;
 
         Fecha_check(day, month, year);
-        
+
     }
 */
  }
@@ -144,14 +144,14 @@ Fecha Fecha::operator -(int n)const{
 }
 
 void Fecha:: Fecha_check(int dd,int mm,int yy){
-      
+
         if (dd > 31 || dd <1 )
         {
             throw Fecha::Invalida ("Dia erroneo") ;
         }
         else if (mm > 12 || mm<1)
         {
-            throw Fecha::Invalida("Mes erroneo") ; 
+            throw Fecha::Invalida("Mes erroneo") ;
         }
         else if(yy < Fecha::AnnoMinimo){
             throw Fecha::Invalida ("anno < AnnoMinimo");
@@ -163,14 +163,14 @@ void Fecha:: Fecha_check(int dd,int mm,int yy){
         else{
                 if ((mm==4 || mm==6 || mm==9 || mm==11 )&& (dd >30 ))
                 {
-                    throw Fecha::Invalida ("este mes no tiene 31 dias"); // no tiene 31 dias 
+                    throw Fecha::Invalida ("este mes no tiene 31 dias"); // no tiene 31 dias
                 }
-                else if ((mm==2 && ((yy%4)!=0)) && (dd >28)){ 
+                else if ((mm==2 && ((yy%4)!=0)) && (dd >28)){
                     throw Fecha::Invalida ("Este anno no es bisiesto");//29 dias en no bisisesto
                 }
                 else if (mm==2 && dd>29)
                     throw Fecha::Invalida ("feb no tiene mas de 29 dias"); //feb no tiene mas de 29 dias
-        }  
+        }
 }
 
  Fecha& Fecha::operator+=(int n){
@@ -185,17 +185,17 @@ void Fecha:: Fecha_check(int dd,int mm,int yy){
         int tyear = parser_date.tm_year + 1900;
         int tmonth = parser_date.tm_mon + 1;
         int tday = parser_date.tm_mday;
-        
+
         *this=Fecha (tday,tmonth,tyear);
-        
+
  }
     return *this;
  }
  Fecha& Fecha::operator-=(int n){
      *this+=-n;
      return *this;
- }  
-   
+ }
+
 
 std::ostream& operator << (std::ostream& salida,const Fecha& date){
         salida<<date.cadena();
@@ -204,7 +204,7 @@ std::ostream& operator << (std::ostream& salida,const Fecha& date){
 
 std::istream& operator >> (std::istream& input, Fecha& date){
     char* temp_cad=new char[11];//10+1
-    input.getline(temp_cad,11); 
+    input.getline(temp_cad,11);
     try{
         date = Fecha(temp_cad);
     }catch(Fecha::Invalida e)

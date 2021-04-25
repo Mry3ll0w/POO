@@ -1,5 +1,7 @@
 #include "tarjeta.hpp"
-/////////////////////////////////////Alogritmo de LUHN///////////////////////
+
+/* ----------------- Algoritmo de luhn para la verificacion ----------------- */
+
 bool alg_luhn(const char *numero) {
     char *n;
     int digito;
@@ -24,7 +26,8 @@ bool alg_luhn(const char *numero) {
 }
 
 
-/////////////////////Clase NUMERO//////////////////////////
+/* ------------------------------ Clase numero ------------------------------ */
+
 Numero::Numero(const char* n)
 	: numero_(Cadena(n))
 {
@@ -67,3 +70,14 @@ Numero::Numero(const char* n)
 bool operator <(const Numero& a, const Numero& b) {
 	return strcmp(a,b)<0;
 }
+
+Tarjeta::Tarjeta(const char* numero, Usuario& user,const char* fecha_caducidad)
+    : numero_(Numero(numero)),
+      titular(&user),
+      caducidad(Fecha(fecha_caducidad)),
+      activa(true)
+{
+    
+}
+
+
