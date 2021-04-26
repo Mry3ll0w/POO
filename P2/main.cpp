@@ -7,6 +7,8 @@
 
 int main(int argc, char const *argv[])
 {	
+	Usuario ara("007","Antonio","Roldan","Hermanos Rosquete 21","12345678");
+	Tarjeta a();
 	return 0;
 }
 

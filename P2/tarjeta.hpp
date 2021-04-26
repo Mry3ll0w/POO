@@ -1,10 +1,9 @@
 #ifndef TARJETA_H
 #define TARJETA_H
 #include "cadena.hpp"
-#include "usuario.hpp"
+
 #include "fecha.hpp"
 #include <set>
-
 class Usuario;
 class Numero
 {
@@ -71,10 +70,12 @@ public:
     const Fecha& caducidad()const{ return caducidad_;}
     const bool activa()const{return activa_;}
     bool& activa(){return activa_;}
-    const Tipo tipo();
+    const Tipo tipo()const;
 	~Tarjeta(){
         if (activa_==true||titular_!=nullptr){no_es_titular();}
     };
+/* ------------------ SOBRECARGA DEL OPERADOR DE INSERCION ------------------ */
+
 private:
     Numero numero_;
     Usuario* titular_;

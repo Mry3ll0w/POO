@@ -55,13 +55,13 @@ public:
     Usuario(const char* id,const char* nombre, const char* apellidos, const char* direccion, const char* clave);
     Usuario(const Usuario& )=delete;
     Usuario& operator=(const Usuario)=delete;
-    ~Usuario();
+    ~Usuario(){cout<<endl;};
 
     //RELACIONES ENTRE TARJETA + ARTICULO
     
     //std::map<Numero,Tarjeta*> Tarjetas;
     std::unordered_map<Articulo*,unsigned int>Articulos;
-    
+
     //Manejo de excepciones
     class Id_duplicado
     {

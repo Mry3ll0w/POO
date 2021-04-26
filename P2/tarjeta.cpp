@@ -96,7 +96,7 @@ Tarjeta::Tarjeta(const char* numero, Usuario& user,const char* fecha_caducidad)
 
 }
 
-const Tarjeta::Tipo Tarjeta::tipo(){
+const Tarjeta::Tipo Tarjeta::tipo()const{
     Cadena aux_tipo =numero_.numero();
     if (aux_tipo[0]=='3')
     {
@@ -122,6 +122,11 @@ const Tarjeta::Tipo Tarjeta::tipo(){
         return Otro;
 }
 
-
-
+ostream& operator<<(std::ostream& salida,const Tarjeta& a)noexcept{
+    salida<<a.tipo()<<endl;
+    salida<<a.numero().numero()<<endl;
+    salida<<a.titular().nombre().c_str()<<" "<<a.titular().apellidos().c_str()<<endl;
+    salida<<"Caduca: "<<a.caducidad().mes()<<"/"<<a.caducidad().anno()<<endl;
+    return salida;
+}
 
