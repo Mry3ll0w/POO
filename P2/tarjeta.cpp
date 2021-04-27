@@ -125,7 +125,7 @@ const Tarjeta::Tipo Tarjeta::tipo()const{
 ostream& operator<<(std::ostream& salida,const Tarjeta& a)noexcept{
     salida<<a.tipo()<<endl;
     salida<<a.numero().numero()<<endl;
-    salida<<a.titular().nombre().c_str()<<" "<<a.titular().apellidos().c_str()<<endl;
+    salida<<a.titular()->nombre().c_str()<<" "<<a.titular()->apellidos().c_str()<<endl;
     salida<<"Caduca: "<<a.caducidad().mes()<<"/"<<a.caducidad().anno()<<endl;
     return salida;
 }

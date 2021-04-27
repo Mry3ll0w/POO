@@ -83,7 +83,7 @@ public:
     void no_es_titular_de(Tarjeta&);
     void compra( Articulo& , unsigned int);
     size_t n_articulos(){return Articulos.size();}
-
+    friend ostream& operator<<(std::ostream& salida,const Usuario& a)noexcept;
 };
 
 

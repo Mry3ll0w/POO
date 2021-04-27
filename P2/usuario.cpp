@@ -91,7 +91,15 @@ void Usuario::compra(Articulo& a, unsigned int cantidad) {
     }
 }
 
-
+ostream& operator<<(std::ostream& salida,const Usuario& a)noexcept {
+    salida<<a.id()<<'['<<a.pass_<<']'<<" "<<a.nombre()<<" "<<a.apellidos()<<endl;
+    salida<<a.direccion()<<endl;
+    for (auto i:a.Tarjetas)
+    {
+        salida<<i.second<<endl;
+    }
+    return salida;
+}
 
 
 
