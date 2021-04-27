@@ -66,7 +66,7 @@ public:
     Tarjeta(Tarjeta&)=delete;
 /* ------------------------------ observadores ------------------------------ */
     const Numero& numero()const{return numero_;}
-    const Usuario& titular()const{ return *titular_; }
+    const Usuario* titular()const{ return titular_; }
     const Fecha& caducidad()const{ return caducidad_;}
     const bool activa()const{return activa_;}
     bool& activa(){return activa_;}

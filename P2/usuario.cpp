@@ -1,5 +1,6 @@
 #include "usuario.hpp"
 #include "cadena.hpp"
+#include "tarjeta.hpp"
 #include <random>
 #include <map>
 #include <unordered_map>
@@ -49,6 +50,47 @@ Usuario::Usuario(const char* id,const char* nombre, const char* apellidos, const
 	}
     
 }
+
+void Usuario::es_titular_de(Tarjeta& t) {
+    if (t.titular()==this)//Compara la direccion de memoria directamente
+    {
+        Tarjetas.insert(make_pair(t.numero(),&t));
+    }
+}
+
+Usuario::~Usuario()
+{
+    for (auto i:Tarjetas)
+    {
+        i.second->anular_titular();
+    }
+    identificadores.erase(&identficador_);//elimina user de la lista
+}
+
+
+
+void Usuario::no_es_titular_de(Tarjeta& t) {
+    Tarjetas.erase(t.numero());//Elimina la tarjeta del set de tarjetas
+}
+
+void Usuario::compra(Articulo& a, unsigned int cantidad) {
+    auto found = Articulos.find(&a);
+    if (found!=Articulos.end())//Si el articulo esta en el carrito y cantidad == 0 eliminalo 
+    {
+        if (cantidad==0)
+        {
+            Articulos.erase(Articulos.find(&a));
+        }
+        if(cantidad>0){
+           found->second=cantidad;
+        }
+       
+    }
+    else{
+        Articulos.insert(make_pair(&a,cantidad));
+    }
+}
+
 
 
 

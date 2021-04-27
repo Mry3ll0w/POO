@@ -10,7 +10,7 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <unistd.h>
-
+class Tarjeta;
 //Clase CLAVE
 class Clave
 {
@@ -18,12 +18,13 @@ private:
     Cadena clave_cifrada;
 public:
     
-    //Razon de fallo para el manejo de excepciones
+/* -------------- Razon de fallo para el manejo de excepciones -------------- */
+
     enum Razon{CORTA,ERROR_CRYPT};
 
-    /**
-     * Clase incorrecta para el manejo de excepciones
-     * */
+    
+/* ------------- Clase incorrecta para el manejo de excepciones ------------- */
+    
     class Incorrecta
     {
     private:
@@ -38,7 +39,8 @@ public:
     const char* clave(){return clave_cifrada.c_str();}
 };
 
-//CLASE USUARIO
+/* ------------------------------ CLASE USUARIO ----------------------------- */
+
 class Usuario
 {
 private:
@@ -55,12 +57,12 @@ public:
     Usuario(const char* id,const char* nombre, const char* apellidos, const char* direccion, const char* clave);
     Usuario(const Usuario& )=delete;
     Usuario& operator=(const Usuario)=delete;
-    ~Usuario(){cout<<endl;};
+    ~Usuario();
 
     //RELACIONES ENTRE TARJETA + ARTICULO
     
-    //std::map<Numero,Tarjeta*> Tarjetas;
-    std::unordered_map<Articulo*,unsigned int>Articulos;
+    std::map<Numero,Tarjeta*> Tarjetas;
+    art Articulos;
 
     //Manejo de excepciones
     class Id_duplicado
@@ -71,14 +73,16 @@ public:
         Id_duplicado(const Cadena&a):id(a){}
         const Cadena idd()const{return id;}
     };
-    //Metodos Observadores 
+    //Metodos 
     const Cadena id()const{return identficador_;}
     const Cadena nombre()const{return nombre_;}
     const Cadena apellidos()const{return apellidos_;}
     const Cadena direccion()const{return direccion_;}
-    //const std::unordered_set<Tarjeta> tarjetas()const{return Tarjetas;}
-    //observador de compra ???
-    // INCOMPLETO
+    const std::map<Numero,Tarjeta*> tarjetas()const{return Tarjetas;}
+    void es_titular_de(Tarjeta&);
+    void no_es_titular_de(Tarjeta&);
+    void compra( Articulo& , unsigned int);
+    size_t n_articulos(){return Articulos.size();}
 
 };
 
