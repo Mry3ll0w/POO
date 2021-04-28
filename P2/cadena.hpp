@@ -116,12 +116,12 @@ friend istream& operator >> (std::istream& sal, Cadena& cad)noexcept{
 };
 //Funciones y operadores
 Cadena operator+(const Cadena& a,const Cadena& b);
-inline bool operator ==(const Cadena& a,const Cadena& b){
-        return strcmp(a.c_str(),b.c_str())==0;
-}
-inline bool operator!=(const Cadena& a,const Cadena& b){
-        return !(a==b);
-}
+inline bool operator ==(Cadena a,Cadena b){
+        return !strcmp(a.c_str(),b.c_str());
+    }
+    inline bool operator!=(Cadena a,Cadena b){
+        return !(a.c_str(),b.c_str());
+    }
 inline bool operator >(const Cadena& a,const Cadena& b){
         //Si una cadena tiene sus caracteres mas grandes que otra==> suma de sus caracteres en ascii sera mayor que la otra
         int car_a=0,car_b=0;
@@ -138,8 +138,10 @@ inline bool operator >(const Cadena& a,const Cadena& b){
         else
             return false;
 }
+
+
 inline bool operator >=(Cadena a,Cadena b){
-        return (a > b)||(a==b);
+    return (a > b)||(a==b);
 }
 inline bool operator <(Cadena a,Cadena b){
         return !(a >= b);
