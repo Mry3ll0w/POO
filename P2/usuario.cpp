@@ -1,5 +1,5 @@
 #include "usuario.hpp"
-#include "cadena.hpp"
+#include "../P1/cadena.hpp"
 #include "tarjeta.hpp"
 #include <random>
 #include <map>
@@ -37,12 +37,12 @@ bool Clave::verifica(const char* a)const{
 /* ------------------------------ CLASE USUARIO ----------------------------- */
 
 
-Usuario::Usuario(const char* id,const char* nombre, const char* apellidos, const char* direccion, const char* clave)
-    : identficador_(Cadena(id)),
-      nombre_(Cadena(nombre)),
-      apellidos_(Cadena(apellidos)),
-      direccion_(Cadena(direccion)),
-      pass_(Clave(clave).clave())
+Usuario::Usuario(const Cadena& id,const Cadena& nombre, const Cadena& apellidos, const Cadena& direccion, const Clave& clave)
+    : identficador_(id),
+      nombre_(nombre),
+      apellidos_(apellidos),
+      direccion_(direccion),
+      pass_(clave)
 {
     if (identificadores.insert(&identficador_).second==false)
 	{
@@ -54,13 +54,13 @@ Usuario::Usuario(const char* id,const char* nombre, const char* apellidos, const
 void Usuario::es_titular_de(Tarjeta& t) {
     if (t.titular()==this)//Compara la direccion de memoria directamente
     {
-        Tarjetas.insert(make_pair(t.numero(),&t));
+        Tarjeta_.insert(make_pair(t.numero(),&t));
     }
 }
 
 Usuario::~Usuario()
 {
-    for (auto i:Tarjetas)
+    for (auto i:Tarjeta_)
     {
         i.second->anular_titular();
     }
@@ -70,7 +70,7 @@ Usuario::~Usuario()
 
 
 void Usuario::no_es_titular_de(Tarjeta& t) {
-    Tarjetas.erase(t.numero());//Elimina la tarjeta del set de tarjetas
+    Tarjeta_.erase(t.numero());//Elimina la tarjeta del set de tarjetas
 }
 
 void Usuario::compra(Articulo& a, unsigned int cantidad) {
@@ -94,17 +94,17 @@ void Usuario::compra(Articulo& a, unsigned int cantidad) {
 void mostrar_carro(ostream& salida,Usuario& u) {
     salida<<"Carrito de compra de "<<u.id()<<'['<<u.n_articulos()<<']'<<endl;
     salida<<"=============================================================="<<endl;
-    for (auto i:u.Articulos)
+    for (auto i=u.compra().begin();i!=u.compra().end();++i)
     {
-        salida<<i.second<<"\t"<<i.first<<endl;
+        salida<<i->second<<"\t"<<i->first<<endl;
     }
 
 }
 
 ostream& operator<<(std::ostream& salida,const Usuario& a)noexcept {
-    salida<<a.id()<<'['<<a.pass_<<']'<<" "<<a.nombre()<<" "<<a.apellidos()<<endl;
+    salida<<a.id()<<'['<<a.pass_.clave().c_str()<<']'<<" "<<a.nombre()<<" "<<a.apellidos()<<endl;
     salida<<a.direccion()<<endl;
-    for (auto i:a.Tarjetas)
+    for (auto i:a.Tarjeta_)
     {
         salida<<i.second<<endl;
     }

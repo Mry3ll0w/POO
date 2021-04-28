@@ -2,17 +2,17 @@
 #define ARTICULO_H
 
 #include <string>
-#include "cadena.hpp"
-#include "fecha.hpp"
+#include "../P1/cadena.hpp"
+#include "../P1/fecha.hpp"
 using namespace std;
 class Articulo
 {
 public:
-	Articulo(const char* referencia_,const char* titulo__,const char* f_,
+	Articulo(const Cadena& referencia_,const Cadena& titulo__,const Fecha& f_,
 	const double& precio__, const size_t exs_=0 )
 	:codigo_referencia(Cadena(referencia_)),titulo_(Cadena(titulo__)),fecha_publicacion(f_),precio_(precio__),ejemplares_venta(exs_){
 	};
-	//~Articulo(); no es necesario ya que Cad tiene destructor y fecha tambien
+	
 	inline const char* referencia(){return codigo_referencia.c_str();}
 	inline const char* titulo(){return titulo_.c_str();}
 
@@ -21,6 +21,8 @@ public:
 
 	inline const double precio()const{return precio_;}
 	inline double& precio(){return precio_;}
+
+	inline const Fecha& f_publi(){return fecha_publicacion;}
 
 	friend ostream& operator<<(std::ostream& salida,const Articulo& a)noexcept{
     	salida<<"["<<a.codigo_referencia<<"]";

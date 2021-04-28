@@ -83,7 +83,7 @@ Tarjeta::Tarjeta(const Numero& numero, Usuario& user,const Fecha& fecha_caducida
 
 /* ------------------------ La tarjeta esta duplicada ----------------------- */
 
-    if (Tarjetas.insert(this).second==false)
+    if (Tarjetas.insert(&numero_).second==false)
     {
         throw Tarjeta::Num_duplicado(numero_);
     }
@@ -130,3 +130,6 @@ ostream& operator<<(std::ostream& salida,const Tarjeta& a)noexcept{
     return salida;
 }
 
+bool operator < (const Tarjeta& a, const Tarjeta& b){
+    return a.numero()<b.numero();
+}

@@ -1,8 +1,7 @@
 #ifndef TARJETA_H
 #define TARJETA_H
-#include "cadena.hpp"
-
-#include "fecha.hpp"
+#include "../P1/cadena.hpp"
+#include "../P1/fecha.hpp"
 #include <set>
 class Usuario;
 class Numero
@@ -21,10 +20,10 @@ public:
     class Incorrecto
     {
     private:
-        Numero::Razon r;
+        Razon r;
     public:
-        Incorrecto(const Numero::Razon r_):r(r_){};
-        Razon razon(){return r;}   
+        Incorrecto(const Razon r_):r(r_){};
+        Razon razon()const{return r;}   
     };
 
 private:
@@ -69,7 +68,7 @@ public:
     const Usuario* titular()const{ return titular_; }
     const Fecha& caducidad()const{ return caducidad_;}
     const bool activa()const{return activa_;}
-    bool& activa(){return activa_;}
+    bool activa(bool f){return activa_;}
     const Tipo tipo()const;
 	~Tarjeta(){
         if (activa_==true||titular_!=nullptr){no_es_titular();}
@@ -81,12 +80,12 @@ private:
     Usuario* titular_;
     Fecha caducidad_;
     bool activa_;
-    std::set<Tarjeta*>Tarjetas;
+    std::set<Numero*>Tarjetas;
     
 };
 
 bool alg_luhn(const char *numero);
 bool operator <(const Numero&, const Numero&);
-
-
+bool operator < (const Tarjeta& a, const Tarjeta& b);
+ostream& operator<<(std::ostream& salida,const Tarjeta& a)noexcept;
 #endif

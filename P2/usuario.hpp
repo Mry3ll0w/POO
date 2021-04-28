@@ -1,9 +1,9 @@
 #ifndef USUARIO_H
 #define USUARIO_H
-#include "cadena.hpp"
+#include "../P1/cadena.hpp"
 #include "articulo.hpp"
 #include "tarjeta.hpp"
-#include "fecha.hpp"
+#include "../P1/fecha.hpp"
 #include <random>
 #include <crypt.h>
 #include <map>
@@ -28,41 +28,33 @@ public:
     class Incorrecta
     {
     private:
-        Clave::Razon r;
+        Razon r;
     public:
-        Incorrecta(const Clave::Razon r_):r(r_){};
-        Razon razon(){return r;}   
+        Incorrecta(const Razon r_):r(r_){};
+        Razon razon()const{return r;}   
     };
 
     bool verifica(const char*)const;
     Clave(const char*);
-    const char* clave(){return clave_cifrada.c_str();}
+    const Cadena& clave()const{return clave_cifrada;}
 };
 
 /* ------------------------------ CLASE USUARIO ----------------------------- */
 
 class Usuario
 {
-private:
-    Cadena identficador_;
-    Cadena nombre_;
-    Cadena apellidos_;
-    Cadena direccion_;
-    Cadena pass_;
-    std::unordered_set<Cadena*>identificadores;
-    typedef std::unordered_map<Articulo*,unsigned int>art;
-    
+
 public:
     //CONSTRUCTORES
-    Usuario(const char* id,const char* nombre, const char* apellidos, const char* direccion, const char* clave);
+    Usuario(const Cadena& id,const Cadena& nombre, const Cadena& apellidos, const Cadena& direccion, const Clave& clave);
     Usuario(const Usuario& )=delete;
     Usuario& operator=(const Usuario)=delete;
     ~Usuario();
 
     //RELACIONES ENTRE TARJETA + ARTICULO
-    
-    std::map<Numero,Tarjeta*> Tarjetas;
-    art Articulos;
+    typedef std::map<Numero,Tarjeta*>Tarjetas;
+    typedef std::unordered_map<Articulo*,unsigned int>art;
+    typedef  std::unordered_set<Cadena*> I;
 
     //Manejo de excepciones
     class Id_duplicado
@@ -78,13 +70,23 @@ public:
     const Cadena nombre()const{return nombre_;}
     const Cadena apellidos()const{return apellidos_;}
     const Cadena direccion()const{return direccion_;}
-    const std::map<Numero,Tarjeta*> tarjetas()const{return Tarjetas;}
+    const Tarjetas& tarjetas()const{return Tarjeta_;}
     void es_titular_de(Tarjeta&);
     void no_es_titular_de(Tarjeta&);
     void compra( Articulo& , unsigned int cantidad=1);
     const art& compra()const noexcept{return Articulos;}
     size_t n_articulos(){return Articulos.size();}
     friend ostream& operator<<(std::ostream& salida,const Usuario& a)noexcept;
+private:
+    Cadena identficador_;
+    Cadena nombre_;
+    Cadena apellidos_;
+    Cadena direccion_;
+    Clave pass_;
+    I identificadores;
+    Tarjetas Tarjeta_;
+    art Articulos;
+    
 };
  void mostrar_carro(ostream& os,Usuario& u);
 

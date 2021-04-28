@@ -3,7 +3,9 @@
 #include<vector>
 #include <iostream>
 #include <cstring>
-using namespace std;
+#include <string>
+
+
 class Cadena
 {
 private:
@@ -12,7 +14,7 @@ private:
     class error_handler{
         public:
             void por_que(){
-                cout<<"Contruccion de la cadena es erroneo, revise los datos introducidos"<<endl;
+                std::cout<<"Contruccion de la cadena es erroneo, revise los datos introducidos"<<std::endl;
             };
         private:
             
@@ -35,7 +37,7 @@ public:
         return tam_;
     };
     inline void show()noexcept{
-        cout<<s_<<endl;
+        std::cout<<s_<<std::endl;
     };
     Cadena substr(size_t, size_t)const;
     char at(size_t)const;
@@ -62,50 +64,31 @@ public:
     }
       
 //iteradores P1///
-typedef char* iterator;
-typedef const char* const_iterator;
-typedef std::reverse_iterator<iterator>reverse_iterator;
-typedef std::reverse_iterator<const_iterator>const_reverse_iterator;
-//Funciones de los distintos con iteradores (p1)
-inline iterator begin()noexcept{
-    return s_;
-}
-inline const_iterator begin() const noexcept{
-    return s_;
-}//begin puede devolver const o no const segun el tipo cbign siempre const
-inline const_iterator cbegin() const noexcept{
-    return s_;
-}
-inline const_reverse_iterator crbegin()const noexcept{
-    return const_reverse_iterator(end());
-}
-inline iterator end()noexcept{
-    return s_+tam_;
-};
-inline const_iterator cend()const noexcept{
-    return const_iterator(s_+tam_);
-}
-inline const_iterator end()const noexcept{
-    return const_iterator(s_+tam_);
-}
-inline reverse_iterator rbegin()noexcept{
-    return reverse_iterator(s_+tam_);
-}//usamos reverse it para convertir de char* a reverser_it
-inline reverse_iterator rend()noexcept{
-    return reverse_iterator(s_);
-}
-inline const_reverse_iterator rend()const noexcept{
-    return const_reverse_iterator(s_);
-}
-inline const_reverse_iterator crend()const noexcept{
-    return const_reverse_iterator(s_);
-}
+typedef char* iterator ; 
+typedef const char* const_iterator ; 
+typedef std::reverse_iterator<iterator> reverse_iterator ;
+typedef std::reverse_iterator<const_iterator> const_reverse_iterator ;
+
+
+iterator begin() const{ return s_ ;}
+const_iterator cbegin() const { return s_;}
+reverse_iterator rbegin()const { return reverse_iterator(end()); }
+
+const_reverse_iterator crbegin() const { return const_reverse_iterator(s_ + tam_ ); }
+
+iterator end()const { return s_ + tam_ ; }
+const_iterator cend() const { return s_ + tam_ ; }
+reverse_iterator rend()const { return reverse_iterator(begin()); }
+const_reverse_iterator crend() const { return const_reverse_iterator(s_ ); }
+
+
+
 //P1 OPERADORES DE SALIDA/ENTRADA
-friend ostream& operator<<(std::ostream& salida,const Cadena& cad)noexcept{
+friend std::ostream& operator<<(std::ostream& salida,const Cadena& cad)noexcept{
     salida<<cad.c_str();
     return salida;
 }
-friend istream& operator >> (std::istream& sal, Cadena& cad)noexcept{
+friend std::istream& operator >> (std::istream& sal, Cadena& cad)noexcept{
     char str[33]="";
     sal.width(33);
     sal>> str;
@@ -148,6 +131,12 @@ inline bool operator <(Cadena a,Cadena b){
 }
 inline bool operator <=(Cadena a, Cadena b){
         return !(a>b);
-    } 
+} 
 
+namespace std {
+  template <> struct hash<Cadena> {
+    size_t operator()(const Cadena& cad) const
+    {return hash<std::string>{}(cad.c_str());}
+  };
+}
 #endif

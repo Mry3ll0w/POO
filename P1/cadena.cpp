@@ -87,7 +87,7 @@ Cadena& Cadena::operator =(const char parser_cad[]){
 Cadena Cadena::substr(size_t  inf_limit, size_t sup_lim)const{
       if (inf_limit > sup_lim)
     {
-        swap(inf_limit,sup_lim);
+        std::swap(inf_limit,sup_lim);
     }
     size_t limite = inf_limit + sup_lim ; 
 	if(limite >= length() || inf_limit > length() || limite < inf_limit)
