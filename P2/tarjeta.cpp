@@ -74,10 +74,10 @@ bool operator <(const Numero& a, const Numero& b) {
 /* ------------------------------ clase tarjeta ----------------------------- */
 
 
-Tarjeta::Tarjeta(const char* numero, Usuario& user,const char* fecha_caducidad)
-    : numero_(Numero(numero)),
+Tarjeta::Tarjeta(const Numero& numero, Usuario& user,const Fecha& fecha_caducidad)
+    : numero_(numero),
       titular_(&user),
-      caducidad_(Fecha(fecha_caducidad)),
+      caducidad_(fecha_caducidad),
       activa_(true)
 {
 

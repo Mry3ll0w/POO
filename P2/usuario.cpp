@@ -91,6 +91,16 @@ void Usuario::compra(Articulo& a, unsigned int cantidad) {
     }
 }
 
+void mostrar_carro(ostream& salida,Usuario& u) {
+    salida<<"Carrito de compra de "<<u.id()<<'['<<u.n_articulos()<<']'<<endl;
+    salida<<"=============================================================="<<endl;
+    for (auto i:u.Articulos)
+    {
+        salida<<i.second<<"\t"<<i.first<<endl;
+    }
+
+}
+
 ostream& operator<<(std::ostream& salida,const Usuario& a)noexcept {
     salida<<a.id()<<'['<<a.pass_<<']'<<" "<<a.nombre()<<" "<<a.apellidos()<<endl;
     salida<<a.direccion()<<endl;

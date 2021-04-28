@@ -31,7 +31,7 @@ public:
         Clave::Razon r;
     public:
         Incorrecta(const Clave::Razon r_):r(r_){};
-        Razon razon(Razon a){return r;}   
+        Razon razon(){return r;}   
     };
 
     bool verifica(const char*)const;
@@ -81,11 +81,12 @@ public:
     const std::map<Numero,Tarjeta*> tarjetas()const{return Tarjetas;}
     void es_titular_de(Tarjeta&);
     void no_es_titular_de(Tarjeta&);
-    void compra( Articulo& , unsigned int);
+    void compra( Articulo& , unsigned int cantidad=1);
+    const art& compra()const noexcept{return Articulos;}
     size_t n_articulos(){return Articulos.size();}
     friend ostream& operator<<(std::ostream& salida,const Usuario& a)noexcept;
 };
-
+ void mostrar_carro(ostream& os,Usuario& u);
 
 
 #endif

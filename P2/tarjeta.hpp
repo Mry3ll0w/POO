@@ -24,7 +24,7 @@ public:
         Numero::Razon r;
     public:
         Incorrecto(const Numero::Razon r_):r(r_){};
-        Razon razon(Razon a){return r;}   
+        Razon razon(){return r;}   
     };
 
 private:
@@ -38,7 +38,7 @@ class Tarjeta
 public:
 
     enum Tipo{Otro,VISA,Mastercard,Maestro,JCB,AmericanExpress};
-	Tarjeta(const char* numero, Usuario& user,const char* fecha_caducidad);
+	Tarjeta(const Numero& numero, Usuario& user,const Fecha& fecha_caducidad);
     const Fecha cuando ()const{return caducidad_;}
     void anular_titular(){titular_=nullptr;activa_=false;}
     void no_es_titular(){anular_titular();}//Solicitada por el enunciado, aunque anular titular lo hace 
