@@ -13,7 +13,10 @@ using namespace std;
 
 Clave::Clave(const char* input){
     //Excepcion de clave demasiado corta
-    if (strlen(input)<5){throw Clave::CORTA;}
+
+/* -------------------------------- ARREGLAR -------------------------------- */
+
+    if (strlen(input)<5){/*throw Clave::CORTA;*/} 
     //Encriptado    
     char const MD5chars[]="./0123456789ABCDEFGHIJKLMNOPQRST"
     "UVWXYZabcdefghijklmnopqrstuvwxyz";

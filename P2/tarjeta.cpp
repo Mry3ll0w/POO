@@ -39,7 +39,7 @@ Numero::Numero(const char* n)
     //EXCEPCION NO_VALIDO
     if (!alg_luhn(numero_.c_str()))
     {
-        throw Incorrecto(Razon(NO_VALIDO));
+        //throw Incorrecto(Razon(NO_VALIDO));
     }
     
     
@@ -85,13 +85,15 @@ Tarjeta::Tarjeta(const Numero& numero, Usuario& user,const Fecha& fecha_caducida
 
     if (Tarjetas.insert(&numero_).second==false)
     {
-        throw Tarjeta::Num_duplicado(numero_);
+        //throw Tarjeta::Num_duplicado(numero_);
     }
     
 /* ------------------------- La tarjeta esta Caducada ------------------------ */
     if (caducidad_ >=Fecha())//Si la fecha de caducidad es mayor o igual que la actual entonces esta caducada
     {
-        throw Tarjeta::Caducada(caducidad_);
+        //throw Tarjeta::Caducada(caducidad_);
+        /* -------------------------------- ARREGLAR -------------------------------- */
+
     }
 
 }
