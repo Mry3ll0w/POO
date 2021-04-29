@@ -78,7 +78,8 @@ Tarjeta::Tarjeta(const Numero& numero, Usuario& user,const Fecha& fecha_caducida
     : numero_(numero),
       titular_(&user),
       caducidad_(fecha_caducidad),
-      activa_(true)
+      activa_(true),
+      tipo_(es_tipo())
 {
 
 /* ------------------------ La tarjeta esta duplicada ----------------------- */
@@ -98,7 +99,7 @@ Tarjeta::Tarjeta(const Numero& numero, Usuario& user,const Fecha& fecha_caducida
 
 }
 
-const Tarjeta::Tipo Tarjeta::tipo()const{
+const Tarjeta::Tipo Tarjeta::es_tipo()const{
     Cadena aux_tipo =numero_.numero();
     if (aux_tipo[0]=='3')
     {
@@ -125,7 +126,7 @@ const Tarjeta::Tipo Tarjeta::tipo()const{
 }
 
 ostream& operator<<(std::ostream& salida,const Tarjeta& a)noexcept{
-    salida<<a.tipo()<<endl;
+    salida<<a.es_tipo()<<endl;
     salida<<a.numero().numero()<<endl;
     salida<<a.titular()->nombre().c_str()<<" "<<a.titular()->apellidos().c_str()<<endl;
     salida<<"Caduca: "<<a.caducidad().mes()<<"/"<<a.caducidad().anno()<<endl;

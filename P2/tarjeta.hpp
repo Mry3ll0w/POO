@@ -62,18 +62,23 @@ public:
         public:
             Desactivada(){}
     };
-    Tarjeta(Tarjeta&)=delete;
+    Tarjeta(const Tarjeta& that)=delete;
+    Tarjeta& operator=(const Tarjeta&)=delete;
 /* ------------------------------ observadores ------------------------------ */
     const Numero& numero()const{return numero_;}
     const Usuario* titular()const{ return titular_; }
     const Fecha& caducidad()const{ return caducidad_;}
     const bool activa()const{return activa_;}
     bool activa(bool f){return activa_;}
-    const Tipo tipo()const;
-	~Tarjeta(){
+    const Tipo es_tipo()const;
+   // const Tarjeta::Tipo tipo()const{return tipo_;}
+
+/* ------------------------------- Destructor ------------------------------- */
+
+    ~Tarjeta(){
         if (activa_==true||titular_!=nullptr){no_es_titular();}
     };
-/* ------------------ SOBRECARGA DEL OPERADOR DE INSERCION ------------------ */
+
 
 private:
     Numero numero_;
@@ -81,11 +86,12 @@ private:
     Fecha caducidad_;
     bool activa_;
     std::set<Numero*>Tarjetas;
-    
+    Tipo tipo_;
 };
 
 bool alg_luhn(const char *numero);
 bool operator <(const Numero&, const Numero&);
 bool operator < (const Tarjeta& a, const Tarjeta& b);
+/* ------------------ SOBRECARGA DEL OPERADOR DE INSERCION ------------------ */
 ostream& operator<<(std::ostream& salida,const Tarjeta& a)noexcept;
 #endif
