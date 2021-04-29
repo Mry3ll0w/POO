@@ -1,31 +1,7 @@
 #include "tarjeta.hpp"
+
 #include "usuario.hpp"
-/* ----------------- Algoritmo de luhn para la verificacion ----------------- */
-
-bool alg_luhn(const char *numero) {
-    char *n;
-    int digito;
-    bool par = false;
-    int res = 0;
-
-    n = new char[strlen(numero)+1];
-    strcpy(n, numero);
-    do {
-        digito = n[strlen(n)-1]-'0';
-        n[strlen(n)-1] = 0;
-        res += digito;
-        if(par) {
-            res += digito;
-            if(digito > 4) res -= 9;
-        }
-        par = !par;
-
-    } while(strlen(n));
-    delete[] n;
-    return !(res % 10);
-}
-
-
+bool luhn(const Cadena& num);
 /* ------------------------------ Clase numero ------------------------------ */
 
 Numero::Numero(const char* n)
@@ -34,12 +10,12 @@ Numero::Numero(const char* n)
     //EXCEPCION LONGITUD
     if (numero_.length()<13||numero_.length()>19)
     {
-        throw Incorrecto(Razon(LONGITUD));
+        throw Incorrecto(Razon::LONGITUD);
     }
     //EXCEPCION NO_VALIDO
-    if (!alg_luhn(numero_.c_str()))
+    if (!luhn(numero_.c_str()))
     {
-        //throw Incorrecto(Razon(NO_VALIDO));
+        //throw Incorrecto(Razon::NO_VALIDO);
     }
     
     
@@ -79,14 +55,14 @@ Tarjeta::Tarjeta(const Numero& numero, Usuario& user,const Fecha& fecha_caducida
       titular_(&user),
       caducidad_(fecha_caducidad),
       activa_(true),
-      tipo_(es_tipo())
+      tipo_(tipo())
 {
 
 /* ------------------------ La tarjeta esta duplicada ----------------------- */
 
     if (Tarjetas.insert(&numero_).second==false)
     {
-        //throw Tarjeta::Num_duplicado(numero_);
+        throw Tarjeta::Num_duplicado(numero_);
     }
     
 /* ------------------------- La tarjeta esta Caducada ------------------------ */
@@ -99,7 +75,7 @@ Tarjeta::Tarjeta(const Numero& numero, Usuario& user,const Fecha& fecha_caducida
 
 }
 
-const Tarjeta::Tipo Tarjeta::es_tipo()const{
+const Tarjeta::Tipo Tarjeta::tipo()const{
     Cadena aux_tipo =numero_.numero();
     if (aux_tipo[0]=='3')
     {
@@ -126,7 +102,7 @@ const Tarjeta::Tipo Tarjeta::es_tipo()const{
 }
 
 ostream& operator<<(std::ostream& salida,const Tarjeta& a)noexcept{
-    salida<<a.es_tipo()<<endl;
+    salida<<a.tipo()<<endl;
     salida<<a.numero().numero()<<endl;
     salida<<a.titular()->nombre().c_str()<<" "<<a.titular()->apellidos().c_str()<<endl;
     salida<<"Caduca: "<<a.caducidad().mes()<<"/"<<a.caducidad().anno()<<endl;

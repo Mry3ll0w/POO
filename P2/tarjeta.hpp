@@ -48,20 +48,24 @@ public:
         Fecha f_caducada;
     public:
         Caducada(const Fecha& f_):f_caducada(f_){};
-        const Fecha& cuando()const {return f_caducada;}   
+        const Fecha cuando()const {return f_caducada;}   
     };
+
     class Num_duplicado{
         public:
             Num_duplicado(const Numero& n_):n(n_){};
-            const Numero& que()const{return n;}
+            const Numero que()const{return n;}
         private:
             Numero n;
     };
+
     class Desactivada{
         private:
         public:
             Desactivada(){}
     };
+
+    
     Tarjeta(const Tarjeta& that)=delete;
     Tarjeta& operator=(const Tarjeta&)=delete;
 /* ------------------------------ observadores ------------------------------ */
@@ -70,7 +74,7 @@ public:
     const Fecha& caducidad()const{ return caducidad_;}
     const bool activa()const{return activa_;}
     bool activa(bool f){return activa_;}
-    const Tipo es_tipo()const;
+    const Tipo tipo()const;
    // const Tarjeta::Tipo tipo()const{return tipo_;}
 
 /* ------------------------------- Destructor ------------------------------- */

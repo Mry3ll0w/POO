@@ -16,7 +16,7 @@ Clave::Clave(const char* input){
 
 /* -------------------------------- ARREGLAR -------------------------------- */
 
-    if (strlen(input)<5){/*throw Clave::CORTA;*/} 
+    if (strlen(input)<5){ throw Incorrecta(Razon::CORTA);} 
     //Encriptado    
     char const MD5chars[]="./0123456789ABCDEFGHIJKLMNOPQRST"
     "UVWXYZabcdefghijklmnopqrstuvwxyz";
