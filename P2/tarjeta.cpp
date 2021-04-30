@@ -78,7 +78,7 @@ Tarjeta::Tarjeta(const Numero& numero, Usuario& user,const Fecha& fecha_caducida
 
 }
 
-const Tarjeta::Tipo Tarjeta::tipo()const{
+const Tarjeta::Tipo& Tarjeta::tipo()const{
     Cadena aux_tipo =numero_.numero();
     if (aux_tipo[0]=='3')
     {

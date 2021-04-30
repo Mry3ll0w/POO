@@ -30,6 +30,13 @@ private:
 	Cadena numero_;
 };
 
+
+
+
+
+
+
+
 /* ------------------------------ CLASE TARJETA ----------------------------- */
 
 class Tarjeta
@@ -37,7 +44,12 @@ class Tarjeta
 public:
 
     enum Tipo{Otro,VISA,Mastercard,Maestro,JCB,AmericanExpress};
-	Tarjeta(const Numero& numero, Usuario& user,const Fecha& fecha_caducidad);
+	
+    Tarjeta(const Numero& numero, Usuario& user,const Fecha& fecha_caducidad);
+    Tarjeta(const Tarjeta& that)=delete;
+    Tarjeta& operator=(const Tarjeta&)=delete;
+    ~Tarjeta();
+
     const Fecha cuando ()const{return caducidad_;}
     void anular_titular(){const_cast<Usuario*&>(titular_) =nullptr; activa_=false;}
     void no_es_titular(){anular_titular();}//Solicitada por el enunciado, aunque anular titular lo hace 
@@ -66,20 +78,15 @@ public:
     };
 
     
-    Tarjeta(const Tarjeta& that)=delete;
-    Tarjeta& operator=(const Tarjeta&)=delete;
+   
 /* ------------------------------ observadores ------------------------------ */
     const Numero& numero()const{return numero_;}
     const Usuario* titular()const{ return titular_; }
     const Fecha& caducidad()const{ return caducidad_;}
     const bool activa()const{return activa_;}
     bool activa(bool f){return activa_;}
-    const Tipo tipo()const;
+    const Tipo& tipo()const;
    // const Tarjeta::Tipo tipo()const{return tipo_;}
-
-/* ------------------------------- Destructor ------------------------------- */
-
-    ~Tarjeta();
 
 
 private:
