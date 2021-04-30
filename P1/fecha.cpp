@@ -212,6 +212,6 @@ std::istream& operator >> (std::istream& input, Fecha& date){
             input.setstate(std::ios_base::failbit);
             throw e;
     }
-    delete temp_cad;
+    delete []temp_cad;
     return input;
 }
