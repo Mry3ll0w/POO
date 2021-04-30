@@ -39,7 +39,7 @@ public:
     enum Tipo{Otro,VISA,Mastercard,Maestro,JCB,AmericanExpress};
 	Tarjeta(const Numero& numero, Usuario& user,const Fecha& fecha_caducidad);
     const Fecha cuando ()const{return caducidad_;}
-    void anular_titular(){titular_=nullptr;activa_=false;}
+    void anular_titular(){const_cast<Usuario*&>(titular_) =nullptr; activa_=false;}
     void no_es_titular(){anular_titular();}//Solicitada por el enunciado, aunque anular titular lo hace 
 /* ------------------- Clases para el manejo de excepciones ------------------ */
     class Caducada
@@ -79,9 +79,7 @@ public:
 
 /* ------------------------------- Destructor ------------------------------- */
 
-    ~Tarjeta(){
-        if (activa_==true||titular_!=nullptr){no_es_titular();}
-    };
+    ~Tarjeta();
 
 
 private:

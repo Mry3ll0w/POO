@@ -102,9 +102,9 @@ Cadena operator+(const Cadena& a,const Cadena& b);
 inline bool operator ==(Cadena a,Cadena b){
         return !strcmp(a.c_str(),b.c_str());
     }
-    inline bool operator!=(Cadena a,Cadena b){
-        return !(a.c_str(),b.c_str());
-    }
+inline bool operator!=(Cadena a,Cadena b){
+        return !(a==b);
+}
 inline bool operator >(const Cadena& a,const Cadena& b){
         //Si una cadena tiene sus caracteres mas grandes que otra==> suma de sus caracteres en ascii sera mayor que la otra
         int car_a=0,car_b=0;
@@ -139,4 +139,5 @@ namespace std {
     {return hash<std::string>{}(cad.c_str());}
   };
 }
+
 #endif

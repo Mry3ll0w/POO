@@ -55,6 +55,11 @@ Usuario::Usuario(const Cadena& id,const Cadena& nombre, const Cadena& apellidos,
 }
 
 void Usuario::es_titular_de(Tarjeta& t) {
+    if (t.activa()==false)
+    {
+        throw Tarjeta::Desactivada();
+    }
+    
     if (t.titular()==this)//Compara la direccion de memoria directamente
     {
         Tarjeta_.insert(make_pair(t.numero(),&t));

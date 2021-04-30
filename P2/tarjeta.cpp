@@ -1,5 +1,8 @@
 #include "tarjeta.hpp"
-
+#include <iomanip> 
+#include <cstring> 
+#include <string.h> 
+#include <cctype>
 #include "usuario.hpp"
 bool luhn(const Cadena& num);
 /* ------------------------------ Clase numero ------------------------------ */
@@ -68,7 +71,7 @@ Tarjeta::Tarjeta(const Numero& numero, Usuario& user,const Fecha& fecha_caducida
 /* ------------------------- La tarjeta esta Caducada ------------------------ */
     if (caducidad_ >=Fecha())//Si la fecha de caducidad es mayor o igual que la actual entonces esta caducada
     {
-        //throw Tarjeta::Caducada(caducidad_);
+        //throw Caducada(fecha_caducidad);
         /* -------------------------------- ARREGLAR -------------------------------- */
 
     }
@@ -101,11 +104,20 @@ const Tarjeta::Tipo Tarjeta::tipo()const{
         return Otro;
 }
 
+Tarjeta::~Tarjeta()
+{
+    if(titular_) titular_->no_es_titular_de(*this);
+}
+
 ostream& operator<<(std::ostream& salida,const Tarjeta& a)noexcept{
-    salida<<a.tipo()<<endl;
-    salida<<a.numero().numero()<<endl;
-    salida<<a.titular()->nombre().c_str()<<" "<<a.titular()->apellidos().c_str()<<endl;
-    salida<<"Caduca: "<<a.caducidad().mes()<<"/"<<a.caducidad().anno()<<endl;
+    switch(a.tipo()){ 
+        case Tarjeta::VISA: salida << "VISA"; break;
+        case Tarjeta::Mastercard: salida << "Mastercard"; break; 
+        case Tarjeta::Maestro: salida << "Maestro"; break; 
+        case Tarjeta::JCB:salida << "JCB"; break; 
+        case Tarjeta::AmericanExpress: salida << "AmericanExpress"; break; 
+        case Tarjeta::Otro: salida << "Otro"; break;  
+    }
     return salida;
 }
 
