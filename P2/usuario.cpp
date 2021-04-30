@@ -1,11 +1,12 @@
 #include "usuario.hpp"
 #include "../P1/cadena.hpp"
 #include "tarjeta.hpp"
-#include <random>
-#include <map>
-#include <unordered_map>
-#include <unordered_set>
-#include <unistd.h>
+#include <unistd.h> 
+#include <cstdlib> 
+#include <string.h> 
+#include <random> 
+#include <iomanip> 
+#include <set>
 
 using namespace std;
 
@@ -117,12 +118,12 @@ void Usuario::compra(Articulo& a, unsigned int cantidad) {
 }
 
 void mostrar_carro(ostream& salida,Usuario& u) {
-    salida<<"Carrito de compra de "<<u.id()<<'['<<u.n_articulos()<<']'<<endl;
-    salida<<"=============================================================="<<endl;
-    for (auto i=u.compra().begin();i!=u.compra().end();++i)
-    {
-        salida<<i->second<<"\t"<<i->first<<endl;
-    }
+    salida<<"Carrito de compra de "<<u.id()<<" [Artículos: "<<u.n_articulos()<<"]"<< endl<< " Cant.\tArtículo" <<endl; 
+    salida <<"===========================================================" <<endl; 
+    for(auto i = u.compra().begin(); i != u.compra().end(); ++i){ 
+        salida << " " << i->second << "\t" << "[" << i->first->referencia() << "] \"" << i->first->titulo() << "\", "; 
+        salida << i->first->f_publi().anno() << ". " << setprecision(2) << std::fixed << i->first->precio() << " €" << endl;
+    } 
 
 }
 
