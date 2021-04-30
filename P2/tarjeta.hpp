@@ -85,9 +85,8 @@ public:
     const Fecha& caducidad()const{ return caducidad_;}
     const bool activa()const{return activa_;}
     bool activa(bool f){return activa_;}
-    const Tipo& tipo()const;
-   // const Tarjeta::Tipo tipo()const{return tipo_;}
-
+    const Tipo& tipo()const{return tipo_;}
+    const Tarjeta::Tipo selec_tipo()const;
 
 private:
     Numero numero_;

@@ -83,6 +83,7 @@ void Usuario::no_es_titular_de(Tarjeta& t) {
 
 void Usuario::compra(Articulo& a, unsigned int cantidad) {
     auto found = Articulos.find(&a);
+    /* V1
     if (found!=Articulos.end())//Si el articulo esta en el carrito y cantidad == 0 eliminalo 
     {
         if (cantidad==0)
@@ -97,6 +98,22 @@ void Usuario::compra(Articulo& a, unsigned int cantidad) {
     else{
         Articulos.insert(make_pair(&a,cantidad));
     }
+    */
+    if (found == Articulos.end() ){ 
+        if(cantidad > 0){ 
+        Articulos[const_cast<Articulo*>(&a)] = cantidad; 
+ 
+        } 
+    }else{ 
+            if(cantidad > 0 ){ 
+            Articulos[const_cast<Articulo*>(&a)] = cantidad; 
+            }   
+            else{ 
+            Articulos.erase(const_cast<Articulo*>(&a)); 
+            } 
+    } 
+    
+
 }
 
 void mostrar_carro(ostream& salida,Usuario& u) {

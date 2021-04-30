@@ -10,7 +10,7 @@ class Articulo
 public:
 	Articulo(const Cadena& referencia_,const Cadena& titulo__,const Fecha& f_,
 	const double& precio__, const size_t exs_=0 )
-	:codigo_referencia(Cadena(referencia_)),titulo_(Cadena(titulo__)),fecha_publicacion(f_),precio_(precio__),ejemplares_venta(exs_){
+	:codigo_referencia(Cadena(referencia_)),titulo_(Cadena(titulo__)),fecha_publicacion(f_),ejemplares_venta(exs_),precio_(precio__){
 	};
 	
 	inline const char* referencia(){return codigo_referencia.c_str();}

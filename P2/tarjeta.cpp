@@ -58,7 +58,7 @@ Tarjeta::Tarjeta(const Numero& numero, Usuario& user,const Fecha& fecha_caducida
       titular_(&user),
       caducidad_(fecha_caducidad),
       activa_(true),
-      tipo_(tipo())
+      tipo_(selec_tipo())
 {
 
 /* ------------------------ La tarjeta esta duplicada ----------------------- */
@@ -78,7 +78,7 @@ Tarjeta::Tarjeta(const Numero& numero, Usuario& user,const Fecha& fecha_caducida
 
 }
 
-const Tarjeta::Tipo& Tarjeta::tipo()const{
+const Tarjeta::Tipo Tarjeta::selec_tipo()const{
     Cadena aux_tipo =numero_.numero();
     if (aux_tipo[0]=='3')
     {
