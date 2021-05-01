@@ -26,28 +26,11 @@ Numero::Numero(const Cadena& n)
         throw Incorrecto(Razon::NO_VALIDO);
     }
     
-    
-    //Construccion de la cadena de digitos
-	char claves[]="./ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-    size_t aux_s = strcspn(numero_.c_str(),claves);
-    if (aux_s<numero_.length()) 
-    {
-        throw Incorrecto(Razon(DIGITOS));
+	
 
-    }
-    size_t i;
-    char* aux_cad;
-    char* aux = new char[30];
-    aux_cad = strpbrk(const_cast <char*>(numero_.c_str()),"1234567890");
-    for ( i = 0; aux_cad !=NULL; i++)
-    {
-        aux[++i]=*aux_cad;
-        aux_cad = strpbrk(aux_cad+1,"1234567890");
-    }
-    aux[i]='\0';
-    numero_=aux;
-    delete[] aux;
-
+}
+Numero::operator const char*()const {
+    return numero_.c_str();
 }
 Cadena Numero::espacio(const Cadena &cad)
 {

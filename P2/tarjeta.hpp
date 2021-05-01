@@ -13,7 +13,7 @@ public:
     enum Razon{LONGITUD,DIGITOS,NO_VALIDO};
 /* --------------------------------- METODOS -------------------------------- */
     const char* n()const{return numero_.c_str();}
-	operator const char*()const{return numero_.c_str();}
+	operator const char*()const;
     Cadena espacio(const Cadena& cad);
     Cadena longitud(const Cadena& cad);
 	//Excepciones
