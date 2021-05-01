@@ -54,7 +54,7 @@ public:
     //RELACIONES ENTRE TARJETA + ARTICULO
     typedef std::map<Numero,Tarjeta*>Tarjetas;
     typedef std::unordered_map<Articulo*,unsigned int>art;
-    typedef  std::unordered_set<Cadena*> I;
+    typedef  std::unordered_set<Cadena> I;
 
     //Manejo de excepciones
     class Id_duplicado
@@ -84,7 +84,7 @@ private:
     Cadena apellidos_;
     Cadena direccion_;
     Clave pass_;
-    I identificadores;
+    static I identificadores;
     Tarjetas Tarjeta_;
     art Articulos;
     

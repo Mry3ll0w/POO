@@ -39,7 +39,7 @@ bool Clave::verifica(const char* a)const{
 
 
 /* ------------------------------ CLASE USUARIO ----------------------------- */
-
+Usuario::I Usuario::identificadores;
 
 Usuario::Usuario(const Cadena& id,const Cadena& nombre, const Cadena& apellidos, const Cadena& direccion, const Clave& clave)
     : identficador_(id),
@@ -48,7 +48,7 @@ Usuario::Usuario(const Cadena& id,const Cadena& nombre, const Cadena& apellidos,
       direccion_(direccion),
       pass_(clave)
 {
-    if (identificadores.insert(&identficador_).second==false)
+    if (identificadores.insert(identficador_).second==false)
 	{
 		throw Id_duplicado(identficador_);//Este user ya existe
 	}
@@ -70,7 +70,8 @@ Usuario::~Usuario()
     {
         i.second->anula_titular();
     }
-    identificadores.erase(&identficador_);//elimina user de la lista
+    identificadores.erase(identficador_);
+    //identificadores.//elimina user de la lista
 }
 
 
