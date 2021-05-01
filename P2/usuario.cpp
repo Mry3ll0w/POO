@@ -56,10 +56,7 @@ Usuario::Usuario(const Cadena& id,const Cadena& nombre, const Cadena& apellidos,
 }
 
 void Usuario::es_titular_de(Tarjeta& t) {
-    if (t.activa()==false)
-    {
-        throw Tarjeta::Desactivada();
-    }
+   
     
     if (t.titular()==this)//Compara la direccion de memoria directamente
     {
@@ -71,16 +68,11 @@ Usuario::~Usuario()
 {
     for (auto i:Tarjeta_)
     {
-        i.second->anular_titular();
+        i.second->anula_titular();
     }
     identificadores.erase(&identficador_);//elimina user de la lista
 }
 
-
-
-void Usuario::no_es_titular_de(Tarjeta& t) {
-    Tarjeta_.erase(t.numero());//Elimina la tarjeta del set de tarjetas
-}
 
 void Usuario::compra(Articulo& a, unsigned int cantidad) {
     auto found = Articulos.find(&a);
@@ -137,6 +129,9 @@ ostream& operator<<(std::ostream& salida,const Usuario& a)noexcept {
     return salida;
 }
 
-
+void Usuario::no_es_titular_de(Tarjeta& t){
+    t.anula_titular();
+    Tarjeta_.erase(t.numero());
+}
 
 

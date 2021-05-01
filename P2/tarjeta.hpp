@@ -4,8 +4,7 @@
 #include "../P1/fecha.hpp"
 #include <set>
 class Usuario;
-class Numero
-{
+class Numero{
 public:
 	//CONSTRUCTORES
 	Numero(const char* n);
@@ -51,8 +50,8 @@ public:
     ~Tarjeta();
 
     const Fecha cuando ()const{return caducidad_;}
-    void anular_titular(){const_cast<Usuario*&>(titular_) =nullptr; activa_=false;}
-    void no_es_titular(){anular_titular();}//Solicitada por el enunciado, aunque anular titular lo hace 
+    void anula_titular(){titular_ = 0;}
+    
 /* ------------------- Clases para el manejo de excepciones ------------------ */
     class Caducada
     {
@@ -70,34 +69,29 @@ public:
         private:
             Numero n;
     };
-
+    
     class Desactivada{
-        private:
-        public:
-            Desactivada(){}
     };
-
+    
     
    
 /* ------------------------------ observadores ------------------------------ */
-    const Numero& numero()const{return numero_;}
+    Numero numero()const{return numero_;}
     const Usuario* titular()const{ return titular_; }
-    const Fecha& caducidad()const{ return caducidad_;}
-    const bool activa()const{return activa_;}
-    bool activa(bool f){return activa_;}
-    const Tipo& tipo()const{return tipo_;}
-    const Tarjeta::Tipo selec_tipo()const;
+    Fecha caducidad()const{ return caducidad_;}
+    bool activa()const{return activa_;}
+    bool activa(bool f=true);
+    Tipo tipo()const{return tipo_;}
+    Tarjeta::Tipo selec_tipo()const;
 
 private:
     Numero numero_;
-    Usuario* titular_;
+    const Usuario* titular_;
     Fecha caducidad_;
     bool activa_;
-    std::set<Numero*>Tarjetas;
     Tipo tipo_;
 };
 
-bool alg_luhn(const char *numero);
 bool operator <(const Numero&, const Numero&);
 bool operator < (const Tarjeta& a, const Tarjeta& b);
 /* ------------------ SOBRECARGA DEL OPERADOR DE INSERCION ------------------ */

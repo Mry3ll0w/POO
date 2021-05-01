@@ -60,25 +60,17 @@ Tarjeta::Tarjeta(const Numero& numero, Usuario& user,const Fecha& fecha_caducida
       activa_(true),
       tipo_(selec_tipo())
 {
-
-/* ------------------------ La tarjeta esta duplicada ----------------------- */
-
-    if (Tarjetas.insert(&numero_).second==false)
-    {
-        throw Tarjeta::Num_duplicado(numero_);
-    }
     
 /* ------------------------- La tarjeta esta Caducada ------------------------ */
     if (caducidad_ <Fecha())//Si la fecha de caducidad es mayor o igual que la actual entonces esta caducada
     {
         throw Caducada(fecha_caducidad);
-        /* -------------------------------- ARREGLAR -------------------------------- */
 
     }
 
 }
 
-const Tarjeta::Tipo Tarjeta::selec_tipo()const{
+Tarjeta::Tipo Tarjeta::selec_tipo()const{
     Cadena aux_tipo =numero_.numero();
     if (aux_tipo[0]=='3')
     {
@@ -106,7 +98,16 @@ const Tarjeta::Tipo Tarjeta::selec_tipo()const{
 
 Tarjeta::~Tarjeta()
 {
-    if(titular_) titular_->no_es_titular_de(*this);
+    
+    if(Usuario* temp_u = const_cast<Usuario*>(titular_)) {
+        temp_u->no_es_titular_de(*this);
+    }
+
+}
+
+bool Tarjeta::activa(bool f) {
+    activa_=f;
+    return activa_;
 }
 
 ostream& operator<<(std::ostream& salida,const Tarjeta& a)noexcept{
