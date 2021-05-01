@@ -69,9 +69,9 @@ Tarjeta::Tarjeta(const Numero& numero, Usuario& user,const Fecha& fecha_caducida
     }
     
 /* ------------------------- La tarjeta esta Caducada ------------------------ */
-    if (caducidad_ >=Fecha())//Si la fecha de caducidad es mayor o igual que la actual entonces esta caducada
+    if (caducidad_ <Fecha())//Si la fecha de caducidad es mayor o igual que la actual entonces esta caducada
     {
-        //throw Caducada(fecha_caducidad);
+        throw Caducada(fecha_caducidad);
         /* -------------------------------- ARREGLAR -------------------------------- */
 
     }
