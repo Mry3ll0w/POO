@@ -7,11 +7,17 @@ class Usuario;
 class Numero{
 public:
 	//CONSTRUCTORES
-	Numero(const char* n);
-	const char* numero()const{return numero_.c_str();}
+	Numero(const Cadena& n);
+	
+/* ------------------------------- constantes ------------------------------- */
+    enum Razon{LONGITUD,DIGITOS,NO_VALIDO};
+/* --------------------------------- METODOS -------------------------------- */
+    const char* n()const{return numero_.c_str();}
 	operator const char*()const{return numero_.c_str();}
+    Cadena espacio(const Cadena& cad);
+    Cadena longitud(const Cadena& cad);
 	//Excepciones
-	enum Razon{LONGITUD,DIGITOS,NO_VALIDO};
+	
 
     /**
      * Clase incorrecto para el manejo de excepciones

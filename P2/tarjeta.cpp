@@ -3,22 +3,27 @@
 #include <cstring> 
 #include <string.h> 
 #include <cctype>
+#include <algorithm>
 #include "usuario.hpp"
 bool luhn(const Cadena& num);
 /* ------------------------------ Clase numero ------------------------------ */
 
-Numero::Numero(const char* n)
-	: numero_(Cadena(n))
+Numero::Numero(const Cadena& n)
+	: numero_(longitud(n))
 {
+    if( std::count_if(numero_.begin(), numero_.end(), static_cast<int(*)(int)>(std::isdigit)) != numero_.length() )
+    {
+        throw Incorrecto(Razon::DIGITOS) ;
+    }
     //EXCEPCION LONGITUD
     if (numero_.length()<13||numero_.length()>19)
     {
         throw Incorrecto(Razon::LONGITUD);
     }
     //EXCEPCION NO_VALIDO
-    if (!luhn(numero_.c_str()))
+    if (!luhn(numero_))
     {
-        //throw Incorrecto(Razon::NO_VALIDO);
+        throw Incorrecto(Razon::NO_VALIDO);
     }
     
     
@@ -44,11 +49,35 @@ Numero::Numero(const char* n)
     delete[] aux;
 
 }
+Cadena Numero::espacio(const Cadena &cad)
+{
+    Cadena aux_cad (cad) ;
 
+    std::remove_if(aux_cad.begin(),aux_cad.end()+1,[](char c){return isspace(c);});
+
+    return Cadena(aux_cad.c_str()) ;
+
+}
+
+Cadena Numero::longitud(const Cadena &cad)
+{
+
+    Cadena aux = espacio(cad) ;
+
+    if(aux.length() > 19 || aux.length() == 0 || aux.length() < 13 )
+    {
+        throw Incorrecto(Razon::LONGITUD) ;
+    }
+
+    return aux ;
+}
 
 bool operator <(const Numero& a, const Numero& b) {
 	return strcmp(a,b)<0;
 }
+
+
+
 
 /* ------------------------------ clase tarjeta ----------------------------- */
 
@@ -71,7 +100,7 @@ Tarjeta::Tarjeta(const Numero& numero, Usuario& user,const Fecha& fecha_caducida
 }
 
 Tarjeta::Tipo Tarjeta::selec_tipo()const{
-    Cadena aux_tipo =numero_.numero();
+    Cadena aux_tipo =numero_.n();
     if (aux_tipo[0]=='3')
     {
         if (aux_tipo[1]=='4'||aux_tipo[1]=='7')
