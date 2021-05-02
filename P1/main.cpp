@@ -3,14 +3,9 @@
 #include "cadena.hpp"
 #include <ctime>
 int main(){
-<<<<<<< HEAD
-    const Cadena a(3);
-    cout<<strcmp(a.c_str(),"   ")<<endl;
-    
-=======
-    Cadena a="XXX",b="xxx";
+     Fecha f(1, 1, 2010);
+      const Fecha g(----f);
 
-
->>>>>>> main
-    return 0;
+    std::cout<<"f:"<<  f <<std::endl;
+    std::cout<<"g:"<< g <<std::endl;
 }

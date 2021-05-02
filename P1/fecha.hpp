@@ -42,16 +42,18 @@ class Fecha{
             return *this;
         }
         inline Fecha operator ++(int){
-            *this+=1;
-            return  *this;
+            Fecha t(*this);
+            *this+=(1);
+            return  t;
         }
-        Fecha operator --(){
+        Fecha& operator --(){
             *this+=-1;
             return *this;
         }
-        inline Fecha& operator--(int){
-            *this+=-1;
-            return *this;
+        inline Fecha operator--(int){
+            Fecha t(*this);
+            *this+=(-1);
+            return  t;
         }
         Fecha operator +(int)const;
         Fecha operator -(int)const;
