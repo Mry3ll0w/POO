@@ -47,7 +47,7 @@ private:
 class Tarjeta
 {
 public:
-
+    typedef  std::set<Numero> num;
     enum Tipo{Otro,VISA,Mastercard,Maestro,JCB,AmericanExpress};
 	
     Tarjeta(const Numero& numero, Usuario& user,const Fecha& fecha_caducidad);
@@ -56,7 +56,7 @@ public:
     ~Tarjeta();
 
     const Fecha cuando ()const{return caducidad_;}
-    void anula_titular(){titular_ = 0;}
+    void anula_titular(){titular_ = nullptr;activa_=false;}
     
 /* ------------------- Clases para el manejo de excepciones ------------------ */
     class Caducada
@@ -95,6 +95,7 @@ private:
     const Usuario* titular_;
     Fecha caducidad_;
     bool activa_;
+    num numeros;
     Tipo tipo_;
 };
 
@@ -102,4 +103,5 @@ bool operator <(const Numero&, const Numero&);
 bool operator < (const Tarjeta& a, const Tarjeta& b);
 /* ------------------ SOBRECARGA DEL OPERADOR DE INSERCION ------------------ */
 ostream& operator<<(std::ostream& salida,const Tarjeta& a)noexcept;
+ostream& operator<<(std::ostream& salida,const Tarjeta::Tipo a)noexcept;
 #endif

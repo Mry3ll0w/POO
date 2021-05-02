@@ -57,18 +57,18 @@ Usuario::Usuario(const Cadena& id,const Cadena& nombre, const Cadena& apellidos,
 
 void Usuario::es_titular_de(Tarjeta& t) {
    
-    
     if (t.titular()==this)//Compara la direccion de memoria directamente
     {
         Tarjeta_.insert(make_pair(t.numero(),&t));
     }
+    
 }
 
 Usuario::~Usuario()
 {
-    for (auto i:Tarjeta_)
+    for ( Usuario::Tarjetas::const_iterator i=Tarjeta_.begin();i!=Tarjeta_.end();++i)
     {
-        i.second->anula_titular();
+        i->second->anula_titular();
     }
     identificadores.erase(identficador_);
     //identificadores.//elimina user de la lista
@@ -77,22 +77,6 @@ Usuario::~Usuario()
 
 void Usuario::compra(Articulo& a, unsigned int cantidad) {
     auto found = Articulos.find(&a);
-    /* V1
-    if (found!=Articulos.end())//Si el articulo esta en el carrito y cantidad == 0 eliminalo 
-    {
-        if (cantidad==0)
-        {
-            Articulos.erase(Articulos.find(&a));
-        }
-        if(cantidad>0){
-           found->second=cantidad;
-        }
-       
-    }
-    else{
-        Articulos.insert(make_pair(&a,cantidad));
-    }
-    */
     if (found == Articulos.end() ){ 
         if(cantidad > 0){ 
         Articulos[const_cast<Articulo*>(&a)] = cantidad; 
@@ -107,7 +91,6 @@ void Usuario::compra(Articulo& a, unsigned int cantidad) {
             } 
     } 
     
-
 }
 
 void mostrar_carro(ostream& salida,Usuario& u) {
@@ -121,11 +104,12 @@ void mostrar_carro(ostream& salida,Usuario& u) {
 }
 
 ostream& operator<<(std::ostream& salida,const Usuario& a)noexcept {
-    salida<<a.id()<<'['<<a.pass_.clave().c_str()<<']'<<" "<<a.nombre()<<" "<<a.apellidos()<<endl;
+    salida<<a.id()<<'['<<a.pass_.clave()<<']'<<" "<<a.nombre()<<" "<<a.apellidos()<<endl;
     salida<<a.direccion()<<endl;
-    for (auto i:a.Tarjeta_)
+    salida<<"Tarjetas: "<<endl;
+    for (Usuario::Tarjetas::const_iterator i=a.Tarjeta_.begin();i!=a.Tarjeta_.end();++i)
     {
-        salida<<i.second<<endl;
+        salida<<*(i->second)<<endl;
     }
     return salida;
 }

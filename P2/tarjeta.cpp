@@ -72,12 +72,14 @@ Tarjeta::Tarjeta(const Numero& numero, Usuario& user,const Fecha& fecha_caducida
       activa_(true),
       tipo_(selec_tipo())
 {
-    
+    if (numeros.insert(numero_).second==false)
+    {
+        throw Num_duplicado(numero_);
+    }
 /* ------------------------- La tarjeta esta Caducada ------------------------ */
     if (caducidad_ < Fecha())//Si la fecha de caducidad es mayor o igual que la actual entonces esta caducada
     {
         throw Caducada(fecha_caducidad);
-
     }
 
 }
@@ -114,7 +116,8 @@ Tarjeta::~Tarjeta()
     if(Usuario* temp_u = const_cast<Usuario*>(titular_)) {
         temp_u->no_es_titular_de(*this);
     }
-
+    numeros.erase(numero_);
+    
 }
 
 bool Tarjeta::activa(bool f) {
@@ -122,8 +125,8 @@ bool Tarjeta::activa(bool f) {
     return activa_;
 }
 
-ostream& operator<<(std::ostream& salida,const Tarjeta& a)noexcept{
-    switch(a.tipo()){ 
+ostream& operator<<(std::ostream& salida,const Tarjeta::Tipo a)noexcept{
+    switch(a){ 
         case Tarjeta::VISA: salida << "VISA"; break;
         case Tarjeta::Mastercard: salida << "Mastercard"; break; 
         case Tarjeta::Maestro: salida << "Maestro"; break; 
@@ -132,6 +135,28 @@ ostream& operator<<(std::ostream& salida,const Tarjeta& a)noexcept{
         case Tarjeta::Otro: salida << "Otro"; break;  
     }
     return salida;
+}
+
+ostream& operator<<(std::ostream& salida,const Tarjeta& t)noexcept{
+    int i=0;
+    salida << t.tipo() << std::endl << t.numero() << std::endl; 
+ 
+    Cadena aux_cad_temp = t.titular()->nombre(); 
+     
+    while(aux_cad_temp[i]!='\0') 
+    {
+        if (islower(aux_cad_temp[i])) aux_cad_temp[i]=toupper(aux_cad_temp[i]);i++;
+    } 
+    salida << aux_cad_temp << " "; 
+    i=0; 
+    aux_cad_temp = t.titular()->apellidos(); 
+    while(aux_cad_temp[i]!='\0') 
+    {
+        if (islower(aux_cad_temp[i])) aux_cad_temp[i]=toupper(aux_cad_temp[i]);i++;
+    } 
+    salida << aux_cad_temp << std::endl; 
+    salida << "Caduca: " << std::setfill ('0') << std::setw (2) << t.caducidad().mes() << "/" << std::setw (2) << (t.caducidad().anno() % 100) << std::endl; 
+    return salida; 
 }
 
 bool operator < (const Tarjeta& a, const Tarjeta& b){

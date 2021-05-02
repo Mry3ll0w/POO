@@ -84,27 +84,23 @@ Cadena& Cadena::operator =(const char parser_cad[]){
     return temp+=b;
 }
 
-Cadena Cadena::substr(size_t  inf_limit, size_t sup_lim)const{
-      if (inf_limit > sup_lim)
-    {
-        std::swap(inf_limit,sup_lim);
+Cadena Cadena::substr(size_t  inf, size_t sup)const{
+    int j = 0; 
+    if ( inf > tam_ || sup > tam_ || (inf + sup) > tam_) {
+       throw std::out_of_range ("fuera de rango"); 
     }
-    size_t limite = inf_limit + sup_lim ; 
-	if(limite >= length() || inf_limit > length() || limite < inf_limit)
-	{
-		throw std::out_of_range("Error.Fuera del rango") ; 
-	}
-    else{
-        char* parser_str=new char[(sup_lim - inf_limit)+1];
-        size_t k =0;
-        for (size_t i = inf_limit; i < sup_lim; i++)
-        {
-            parser_str[k]=s_[i];
-            k++;    
-        }
-        
-        return parser_str;
-    }
+    char * char_aux = new char[sup + 1]; //Uno más por el terminador 
+   
+    unsigned int fin = inf + sup; 
+    while ( inf < fin ){ 
+        char_aux[j] = s_[inf]; 
+        ++inf; 
+        ++j; 
+    } 
+    char_aux[j] = '\0'; 
+    Cadena salida(char_aux); 
+    delete[] char_aux; 
+    return salida; 
 }
  char Cadena::at(size_t i)const{
     if (i>=tam_)
