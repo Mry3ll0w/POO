@@ -81,7 +81,9 @@ Tarjeta::Tarjeta(const Numero& numero, Usuario& user,const Fecha& fecha_caducida
     {
         throw Caducada(fecha_caducidad);
     }
-
+    auto tit_ = const_cast<Usuario*>(titular_);
+    
+    tit_->es_titular_de(*this);
 }
 
 Tarjeta::Tipo Tarjeta::selec_tipo()const{

@@ -16,7 +16,6 @@ public:
 	operator const char*()const;
     Cadena espacio(const Cadena& cad);
     Cadena longitud(const Cadena& cad);
-	//Excepciones
 	
 
     /**
