@@ -16,6 +16,8 @@ class Fecha{
         explicit Fecha(int d=0, int m=0, int y=0);
         Fecha(const char* date);
         const char* cadena()const;
+
+        //Fecha(const Fecha& f){};
         //Clase de excepcion
         class Invalida{
             public:
@@ -26,6 +28,9 @@ class Fecha{
             private:
                 const char* input;
         };
+
+/* --------------------------------- METODOS -------------------------------- */
+
         int dia()const noexcept{
             return day;
         }
@@ -60,9 +65,11 @@ class Fecha{
         Fecha& operator+=(int);
         Fecha& operator-=(int);
         ~Fecha();
+
         //Operadores De E/S
        friend std::ostream& operator << (std::ostream& salida,const Fecha& date);
        friend std::istream& operator >>  (std::istream& , Fecha& );
+
     private:
 
         int day,month,year;
