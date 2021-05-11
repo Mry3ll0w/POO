@@ -5,8 +5,8 @@
 #include "../P1/fecha.hpp" 
 #include "../P1/cadena.hpp"
 #include "../P2/articulo.hpp" 
-//#include "pedido-articulo.hpp" 
-//#include "usuario-pedido.hpp" 
+#include "pedido-articulo.hpp" 
+#include "usuario-pedido.hpp" 
 #include<iomanip> 
 #include<iostream> 
 class Pedido
@@ -17,7 +17,7 @@ private:
     Fecha fecha_pedido;
     static unsigned pedidos_realizados; 
 public:
-    Pedido();//Falta la clase  Usuario Pedido y la clase pedido_articulo
+    Pedido(Usuario_Pedido&);//Falta terminar
     ~Pedido();
 };
 
