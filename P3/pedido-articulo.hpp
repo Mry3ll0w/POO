@@ -66,8 +66,8 @@ class Pedido_Articulo{
             if(articulos_pedidos_.find(&a)!=articulos_pedidos_.end())
                 return articulos_pedidos_.find(&a)->second; 
             else
-                Pedido_Articulo::Pedidos vacio; 
-                return vacio;  
+                Pedido_Articulo::Pedidos v; 
+                return v;  
         } 
         std::ostream& mostrarDetallePedidos(std::ostream&) const;  
         std::ostream& mostrarVentasArticulos(std::ostream&) const; 

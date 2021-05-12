@@ -66,16 +66,30 @@ public:
         const Cadena idd()const{return id;}
     };
     //Metodos 
-    const Cadena id()const{return identficador_;}
-    const Cadena nombre()const{return nombre_;}
-    const Cadena apellidos()const{return apellidos_;}
-    const Cadena direccion()const{return direccion_;}
-    const Tarjetas& tarjetas()const{return Tarjeta_;}
+    const Cadena id()const{
+        return identficador_;
+    }
+    const Cadena nombre()const{
+        return nombre_;
+    }
+    const Cadena apellidos()const{
+        return apellidos_;
+    }
+    const Cadena direccion()const{
+        return direccion_;
+    }
+    const Tarjetas& tarjetas()const{
+        return Tarjeta_;
+    }
     void es_titular_de(Tarjeta&);
     void no_es_titular_de(Tarjeta& t);
     void compra( Articulo& , unsigned int cantidad=1);
-    const art& compra()const noexcept{return Articulos;}
-    size_t n_articulos(){return Articulos.size();}
+    const art& compra()const noexcept{
+        return Articulos;
+    }
+    size_t n_articulos(){
+        return Articulos.size();
+    }
     friend ostream& operator<<(std::ostream& salida,const Usuario& a)noexcept;
     
 private:
