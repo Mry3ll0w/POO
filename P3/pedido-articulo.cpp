@@ -2,8 +2,9 @@
 #include <iostream>
 
 std::ostream& operator<<(std::ostream& salida, const LineaPedido& l) {
+    salida<<std::fixed;
     salida << std::setprecision(2);
-    salida << l.precio_venta()<<" "<<"€"<<"\t"<<l.cantidad()<<std::endl;
+    salida << l.precio_venta()<<" €"<<"\t"<<l.cantidad()<<std::endl;
     return salida;
 }
 
@@ -72,7 +73,7 @@ std::ostream& operator<<(std::ostream& salida, Pedido_Articulo::ItemsPedido item
     } 
     salida << "===================================================\n" << std::endl; 
     salida << fixed; 
-    salida << setprecision(2) << pr << " €" << std::endl; 
+    salida << setprecision(1) << pr << " €" << std::endl; 
     return salida;
 }
 

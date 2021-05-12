@@ -23,6 +23,11 @@ Pedido::Pedido(Usuario_Pedido& u_p, Pedido_Articulo& p_a, Usuario& us, const Tar
       Tarjeta::Desactivada des;
       throw des;
     }
+    if (tarjeta.caducidad()<Fecha())
+    {
+      Tarjeta::Desactivada des;
+      throw des;
+    }
     
     for (auto i:us.compra())
     {
