@@ -1,14 +1,15 @@
 #ifndef PEDIDO_HPP
 #define PEDIDO_HPP
-#include "../P2/usuario.hpp" 
-#include "../P2/tarjeta.hpp" 
+#include "usuario.hpp" 
+#include "tarjeta.hpp" 
 #include "../P1/fecha.hpp" 
 #include "../P1/cadena.hpp"
-#include "../P2/articulo.hpp" 
+#include "articulo.hpp" 
 #include "pedido-articulo.hpp" 
 #include "usuario-pedido.hpp" 
 #include<iomanip> 
 #include<iostream> 
+class Pedido_Articulo;
 class Pedido
 {
     private: 
@@ -16,9 +17,12 @@ class Pedido
         const Tarjeta* tarjeta_pago_;  
         double importe_total_; 
         Fecha fecha_pedido_;
-        static unsigned n_pedidos_totales_; 
+        static unsigned n_ped_t_; 
+    public:
 
-    public: 
+    static unsigned n_total_pedidos(){
+        return n_ped_t_;
+    } 
 
     Pedido(Usuario_Pedido& , Pedido_Articulo&, Usuario& , const Tarjeta& , const Fecha& f= Fecha());//f= fecha actual
  
@@ -62,18 +66,11 @@ class Pedido
     const double total() const noexcept {
         return importe_total_;
     } 
-    static unsigned n_total_pedidos() noexcept {
-        return n_pedidos_totales_;
-    } 
+    
+
     
 };
-std::ostream& operator<<(std::ostream& salida, const Pedido& p){
-    salida<<"Núm. pedido: "<<p.numero()<<std::endl;
-    salida<<"Fecha: "<<p.fecha()<<std::endl;
-    salida<<"Pagado con: "<<p.tarjeta()<<endl;
-    salida<<"Importe: "<<p.total()<<std::endl;
-    return salida;
-}
+std::ostream& operator<<(std::ostream& salida, const Pedido& p);
 
 
 

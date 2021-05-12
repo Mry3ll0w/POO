@@ -1,9 +1,9 @@
-#ifndef PEDIDO-ARTICULO_HPP
-#define PEDIDO-ARTICULO_HPP
+#ifndef PEDIDO_ARTICULO_HPP
+#define PEDIDO_ARTICULO_HPP
 #include<iostream> 
 #include <map>
 #include <iomanip> 
-#include "../P2/articulo.hpp" 
+#include "articulo.hpp" 
 #include "pedido.hpp" 
 
 class LineaPedido{ 
@@ -31,13 +31,11 @@ std::ostream& operator<<(std::ostream&, const LineaPedido&);
 
 class Pedido; 
 class Articulo;
-class OrdenaPedidos: public std::binary_function<Pedido*,Pedido*,bool>{ 
+class OrdenaPedidos{ 
 public: 
-    bool operator()( Pedido* p1, Pedido* p2) const{
-        return (p1->numero() < p2->numero());
-    } 
+    bool operator()( Pedido* p1, Pedido* p2) const;
 };
-class OrdenaArticulos: public std::binary_function<Articulo*,Articulo*,bool>{ 
+class OrdenaArticulos{ 
  public: 
     bool operator()(Articulo* a1, Articulo* a2) const {
         return (a1->referencia() < a2->referencia());
@@ -65,9 +63,11 @@ class Pedido_Articulo{
         Pedidos ventas(Articulo& a){
             if(articulos_pedidos_.find(&a)!=articulos_pedidos_.end())
                 return articulos_pedidos_.find(&a)->second; 
-            else
-                Pedido_Articulo::Pedidos v; 
+            else{
+                Pedidos v; 
                 return v;  
+            }
+                
         } 
         std::ostream& mostrarDetallePedidos(std::ostream&) const;  
         std::ostream& mostrarVentasArticulos(std::ostream&) const; 

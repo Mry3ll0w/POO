@@ -1,5 +1,5 @@
-#ifndef USUARIO-PEDIDO_HPP
-#define USUARIO-PEDIDO_HPP
+#ifndef USUARIO_PEDIDO_HPP_
+#define USUARIO_PEDIDO_HPP_
 #include <map> 
 #include <set> 
 class Pedido; 

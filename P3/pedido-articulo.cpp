@@ -4,6 +4,7 @@
 std::ostream& operator<<(std::ostream& salida, const LineaPedido& l) {
     salida << std::setprecision(2);
     salida << l.precio_venta()<<" "<<"€"<<"\t"<<l.cantidad()<<std::endl;
+    return salida;
 }
 
 void Pedido_Articulo::pedir(Pedido& p, Articulo& a, double pr, unsigned c) {
@@ -11,14 +12,14 @@ void Pedido_Articulo::pedir(Pedido& p, Articulo& a, double pr, unsigned c) {
     articulos_pedidos_[&a].insert(make_pair(&p,LineaPedido(pr,c)));
 }
 
-void Pedido_Articulo::pedir(Articulo& a , Pedido& p, double pr , unsigned c=1){
+void Pedido_Articulo::pedir(Articulo& a , Pedido& p, double pr , unsigned c){
     pedir(p, a, pr,c);//Llama al superior con el orden cambiado
 }
 
 /* ------------------- sobrecargas a los flujos de salida ------------------- */
 
 std::ostream& Pedido_Articulo::mostrarDetallePedidos(std::ostream&salida) const {
-    double pr; 
+    double pr=0; 
     for(auto i : pedidos_articulos_){ 
         salida << "Pedido núm. " << i.first->numero(); 
         salida << "\tCliente: " << i.first->tarjeta()->titular()->nombre() << " \n"; 
@@ -74,3 +75,8 @@ std::ostream& operator<<(std::ostream& salida, Pedido_Articulo::ItemsPedido item
     salida << setprecision(2) << pr << " €" << std::endl; 
     return salida;
 }
+
+bool OrdenaPedidos::operator()(Pedido* p1, Pedido* p2)const
+{
+    return (p1->numero() < p2->numero());
+} 
