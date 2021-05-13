@@ -1,5 +1,5 @@
 #include "pedido.hpp"
-unsigned Pedido::n_ped_t_=-1;//fix chapuza pero ok
+unsigned Pedido::n_ped_t_=0;
 Pedido::Pedido(Usuario_Pedido& u_p, Pedido_Articulo& p_a, Usuario& us, const Tarjeta& tarjeta, const Fecha& f)
     : numero_ped_(n_ped_t_),
       tarjeta_pago_(&tarjeta),
