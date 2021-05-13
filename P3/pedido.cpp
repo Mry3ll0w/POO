@@ -1,7 +1,7 @@
 #include "pedido.hpp"
-unsigned Pedido::n_ped_t_=0;
+unsigned Pedido::n_ped_t_=-1;//fix chapuza pero ok
 Pedido::Pedido(Usuario_Pedido& u_p, Pedido_Articulo& p_a, Usuario& us, const Tarjeta& tarjeta, const Fecha& f)
-    : numero_ped_(numero()+1),
+    : numero_ped_(n_ped_t_),
       tarjeta_pago_(&tarjeta),
       importe_total_(0.00),//se calcula a posteriori
       fecha_pedido_(f)
@@ -49,7 +49,7 @@ Pedido::Pedido(Usuario_Pedido& u_p, Pedido_Articulo& p_a, Usuario& us, const Tar
       importe_total_+=i.first->precio()*i.second; //importe=precio*cantidad
       i.first->stock()-=i.second;//actualizamos la cantidad
     }
-    n_ped_t_++;//Aumentamos el numero de pedidos realizados
+    ++n_ped_t_;//Aumentamos el numero de pedidos realizados
 }
 std::ostream& operator<<(std::ostream& salida, const Pedido& p){
     salida<<"Núm. pedido: "<<p.numero()<<std::endl;
