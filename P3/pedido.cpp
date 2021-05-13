@@ -1,7 +1,7 @@
 #include "pedido.hpp"
 unsigned Pedido::n_ped_t_=0;
 Pedido::Pedido(Usuario_Pedido& u_p, Pedido_Articulo& p_a, Usuario& us, const Tarjeta& tarjeta, const Fecha& f)
-    : numero_ped_(n_ped_t_),
+    : numero_ped_(n_ped_t_+1),
       tarjeta_pago_(&tarjeta),
       importe_total_(0.00),//se calcula a posteriori
       fecha_pedido_(f)
