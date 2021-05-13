@@ -18,11 +18,13 @@ Pedido::Pedido(Usuario_Pedido& u_p, Pedido_Articulo& p_a, Usuario& us, const Tar
     {
       throw Pedido::Impostor(&us);
     }
+
     if (tarjeta.activa()==false)
     {
       Tarjeta::Desactivada des;
       throw des;
     }
+
     if (tarjeta.caducidad()<f)
     {
       throw Tarjeta::Caducada(tarjeta.caducidad());
@@ -37,7 +39,7 @@ Pedido::Pedido(Usuario_Pedido& u_p, Pedido_Articulo& p_a, Usuario& us, const Tar
         {
           us.compra(*j.first,0);//vaciamos el carro y lanzamos sin stock
         }
-        //throw Pedido::SinStock(i.first);
+        throw Pedido::SinStock(i.first);
       }
       
     }
