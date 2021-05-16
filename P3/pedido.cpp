@@ -44,18 +44,23 @@ Pedido::Pedido(Usuario_Pedido& u_p, Pedido_Articulo& p_a, Usuario& us, const Tar
       
     }
     u_p.asocia(*this,us);//asociamos el user al pedido
-    for (auto i:us.compra())
+    auto temporal=us.compra();
+    for (auto i:temporal)
     {
-      p_a.pedir(*i.first,*this,i.first->precio(),i.second);
+
+      us.compra(*i.first,0);
+      p_a.pedir(*this,*i.first,i.first->precio(),i.second);
       importe_total_+=i.first->precio()*i.second; //importe=precio*cantidad
       i.first->stock()-=i.second;//actualizamos la cantidad
+      
     }
     ++n_ped_t_;//Aumentamos el numero de pedidos realizados
 }
+
 std::ostream& operator<<(std::ostream& salida, const Pedido& p){
     salida<<"Núm. pedido: "<<p.numero()<<std::endl;
     salida<<"Fecha: "<<p.fecha()<<std::endl;
-    salida<<"Pagado con: "<<p.tarjeta()<<endl;
-    salida<<"Importe: "<<p.total()<<std::endl;
+    salida<<"Pagado con: "<<*p.tarjeta()<<endl;
+    salida<<"Importe: "<<p.total()<<" €"<<std::endl;
     return salida;
 }

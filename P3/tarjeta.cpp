@@ -134,7 +134,7 @@ ostream& operator<<(std::ostream& salida,const Tarjeta::Tipo a)noexcept{
         case Tarjeta::Maestro: salida << "Maestro"; break; 
         case Tarjeta::JCB:salida << "JCB"; break; 
         case Tarjeta::AmericanExpress: salida << "AmericanExpress"; break; 
-        case Tarjeta::Otro: salida << "Otro"; break;  
+        case Tarjeta::Otro: salida << "Tipo indeterminado"; break;  
     }
     return salida;
 }
