@@ -1,7 +1,7 @@
 #include "fecha.hpp"
 #include <ctime>
 Fecha::Fecha(int d,int m,int y){
-         time_t tt;
+        time_t tt;
         time(&tt);
         tm TM = *localtime(&tt);
         int tday= TM.tm_mday;
@@ -25,6 +25,15 @@ Fecha::Fecha(int d,int m,int y){
     year=y;
     
     
+}
+Fecha::Fecha(const char date[11]){
+    
+    
+    if(sscanf(date, "%d/%d/%d", &day, &month, &year)<3){
+        throw Fecha::Invalida(date);
+    }
+    *this = Fecha(day,month,year);
+
 }
 
 //////////////////////////////////////////////////////////////////////CONSTRUCTOR DE CONVERSION \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\/
@@ -92,12 +101,6 @@ void Fecha::show_date()noexcept{
 
 
 
-Fecha::Fecha(const char date[11]){//EN CONSTRUCCION
-    
-    sscanf(date, "%d/%d/%d", &day, &month, &year);
-    *this = Fecha(day,month,year);
-
-}
 
 bool operator >(Fecha a, Fecha b){
 
@@ -191,7 +194,8 @@ std::ostream& operator << (std::ostream& salida,const Fecha& date){
 
 std::istream& operator >> (std::istream& input, Fecha& date){
     char temp_cad[11];//10+1
-    input.getline(temp_cad,11); 
+    input.width(11);
+    input>>temp_cad; 
     try{
         date = Fecha(temp_cad);
     }catch(Fecha::Invalida e)
