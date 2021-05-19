@@ -22,7 +22,7 @@ private:
 public:
     //Constructores
     Cadena(const size_t,char )noexcept;
-    Cadena(const char[])noexcept;
+    Cadena(const char*)noexcept;
     explicit Cadena(const size_t)noexcept;
     explicit Cadena()noexcept;
     Cadena(const Cadena& new_cad); 

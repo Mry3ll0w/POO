@@ -10,11 +10,8 @@ Cadena::Cadena(const  size_t t,const char c)noexcept{
     }
     tam_=t;
 }
-Cadena::Cadena(const char parser_cad[])noexcept{
-    tam_=std::strlen(parser_cad);
-    s_=new char[tam_+1];
-    std::strcpy(s_,parser_cad);
-    
+Cadena::Cadena(const char* parser_cad)noexcept:s_(new char[strlen(parser_cad)+1]),tam_(strlen(parser_cad)){
+    strcpy(s_,parser_cad);
 }
 
  Cadena::Cadena(const size_t size)noexcept{
@@ -29,7 +26,7 @@ Cadena::Cadena(const char parser_cad[])noexcept{
 Cadena::Cadena(const Cadena &new_cad){
     tam_=new_cad.tam_;
     s_=new char[new_cad.length()+1];
-    std::strcpy(s_,new_cad.s_);
+    strcpy(s_,new_cad.s_);
 }
 
 Cadena::Cadena()noexcept{
@@ -73,8 +70,15 @@ Cadena& Cadena::operator =(const char parser_cad[]){
 }
 
  Cadena Cadena::operator +=(const Cadena& a){
+    int tam_t=a.length()+tam_;
+    char temp_s[tam_t];
     tam_= a.length()+tam_;
-    std::strcat(s_,a.s_);
+    strcpy(temp_s,s_);
+    delete []s_;
+    strcat(temp_s,a.s_);
+    s_=new char [tam_+1];
+    strcpy(s_,temp_s);
+    
     return *this;
 }
     

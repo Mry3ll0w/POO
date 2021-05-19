@@ -96,21 +96,8 @@ Fecha::Fecha(const char date[11]){//EN CONSTRUCCION
     
     sscanf(date, "%d/%d/%d", &day, &month, &year);
     *this = Fecha(day,month,year);
-   /* FALLA EN EL THROW y para poder compilar el resto de test sin core dump  lo he comentado
-   int dia_,mes_,anno_;
-    if(sscanf(date, "%d/%d/%d", &dia_, &mes_, &anno_) != 3)
-        throw Invalida("fecha incorrecta");
-    else{
-        
-        day = dia_;
-        month = mes_;
-        year = anno_;
 
-        Fecha_check(day, month, year);
-        
-    }
-*/
- }
+}
 
 bool operator >(Fecha a, Fecha b){
 
@@ -203,7 +190,7 @@ std::ostream& operator << (std::ostream& salida,const Fecha& date){
 }
 
 std::istream& operator >> (std::istream& input, Fecha& date){
-    char* temp_cad=new char[11];//10+1
+    char temp_cad[11];//10+1
     input.getline(temp_cad,11); 
     try{
         date = Fecha(temp_cad);
@@ -212,6 +199,6 @@ std::istream& operator >> (std::istream& input, Fecha& date){
             input.setstate(std::ios_base::failbit);
             throw e;
     }
-    delete []temp_cad;
+    
     return input;
 }
