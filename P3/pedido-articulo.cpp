@@ -81,3 +81,7 @@ bool OrdenaPedidos::operator()(Pedido* p1, Pedido* p2)const
 {
     return (p1->numero() < p2->numero());
 } 
+
+bool OrdenaArticulos::operator()(Articulo* a1, Articulo* a2)const{
+        return (a1->referencia() < a2->referencia());
+} 
