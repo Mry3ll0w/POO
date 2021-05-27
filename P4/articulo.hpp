@@ -41,13 +41,14 @@ public:
 	typedef std::set<Autor*>Autores;
 	Articulo(const Autores& auts,const Cadena& ref_,const Cadena& titulo__,const Fecha& f_,
 	const double& precio__, const size_t exs_=0 )
-	:autores_(auts),codigo_referencia(Cadena(ref_)),titulo_(Cadena(titulo__)),fecha_publicacion(f_),ejemplares_venta(exs_),precio_(precio__){
+	:codigo_referencia(Cadena(ref_)),titulo_(Cadena(titulo__)),fecha_publicacion(f_),ejemplares_venta(exs_),
+	precio_(precio__),autores_(auts){
 	};
 	
-	inline const char* referencia(){
-		return codigo_referencia.c_str();
+	inline const Cadena referencia()const{
+		return codigo_referencia;
 	}
-	inline const Cadena titulo(){
+	inline const Cadena titulo()const{
 		return titulo_;
 	}
 
@@ -65,13 +66,13 @@ public:
 		return precio_;
 	}
 
-	inline const Fecha& f_publi(){
+	inline const Fecha& f_publi()const{
 		return fecha_publicacion;
 	}
     inline const Autores& autores() const noexcept{ 
 		return autores_; 
 	} 
-	friend ostream& operator<<(std::ostream& salida, Articulo& a)noexcept{
+	friend ostream& operator<<(std::ostream& salida,const Articulo& a)noexcept{
     	/* ------------------------------- VAR LOCALES Y LOCALE ------------------------------ */
 		const auto autores = a.autores(); 
  		auto i = autores.begin();
@@ -124,7 +125,8 @@ class ArticuloAlmacenable : public Articulo {
 	public: 
 /* ------------------------------- CONSTRUCTOR ------------------------------ */
  		ArticuloAlmacenable(const Autores& autores, const Cadena& ref_, const Cadena& titulo__, const Fecha& f_publi_, 
-		const double precio_, unsigned stock=0); 
+		const double precio_, unsigned stock=0)
+		: Articulo(autores, ref_, titulo__, f_publi_, precio_), stock_(stock){}
 /* --------------------------------- METODOS -------------------------------- */
  		const unsigned stock() const noexcept{ 
 			return stock_;

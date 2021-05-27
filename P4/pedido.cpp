@@ -29,10 +29,10 @@ Pedido::Pedido(Usuario_Pedido& u_p, Pedido_Articulo& p_a, Usuario& us, const Tar
     {
       throw Tarjeta::Caducada(tarjeta.caducidad());
     }
-    
-    for (auto i:us.compra())
+    auto t = us.compra();
+    for ( Usuario::art::iterator i=t.begin();i!=t.end();++i)
     {
-      
+      /*
       if (i.first->stock()<i.second)//si la cantidad solicitada supera a las existencias
       {
         for (auto j:us.compra())
@@ -41,18 +41,38 @@ Pedido::Pedido(Usuario_Pedido& u_p, Pedido_Articulo& p_a, Usuario& us, const Tar
         }
         throw Pedido::SinStock(i.first);
       }
-      
+      */
+      if(ArticuloAlmacenable* art_almacenable = dynamic_cast<ArticuloAlmacenable*>(i->first)) { 
+        if(i->second > art_almacenable->stock()) { 
+          const_cast<Usuario::art&>(us.compra()).clear(); 
+          throw SinStock(i->first); 
+        } 
+      } 
+      else{
+        if(LibroDigital* libro_digital = dynamic_cast<LibroDigital*>(i->first)){
+          if(libro_digital->f_expir() < f){
+            us.compra(*i->first, 0);
+          }      
+        } 
+      }
+ 
     }
     u_p.asocia(*this,us);//asociamos el user al pedido
     auto temporal=us.compra();
     for (auto i:temporal)
     {
-
+      /*
       us.compra(*i.first,0);
       p_a.pedir(*this,*i.first,i.first->precio(),i.second);
       importe_total_+=i.first->precio()*i.second; //importe=precio*cantidad
       i.first->stock()-=i.second;//actualizamos la cantidad
-      
+      */
+      importe_total_+=i.first->precio()*i.second; //importe=precio*cantidad 
+      p_a.pedir(*this, *i.first, i.first->precio(), i.second); 
+      if(ArticuloAlmacenable* art_almacenable = dynamic_cast<ArticuloAlmacenable*>(i.first)){
+          art_almacenable->stock() -= i.second;
+      } 
+        
     }
     ++n_ped_t_;//Aumentamos el numero de pedidos realizados
 }
