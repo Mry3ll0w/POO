@@ -79,12 +79,14 @@ public:
 		std::locale::global( std::locale( "" ) ); 
 /* ------------------------------- INICIO FUN ------------------------------- */
  		salida<<"["<<a.referencia()<<"] \""<<a.titulo()<<"\", de "<<(*i)->apellidos();
-		for ( auto i = autores.begin(); i!=autores.end() ; i++ )
+		i++;
+		for (; i!=autores.end() ; ++i )
 		{
-			salida << ", " << (*i)->apellidos();
+			salida << ", "<<(*i)->apellidos();
 		}
 
-		salida << ". " << a.f_publi().anno() << ". " <<fixed<<setprecision(2)<<a.precio()<<" €\n\t"; 
+		salida << ". " << a.f_publi().anno() << ". " ;
+		salida<<fixed<<setprecision(2)<<a.precio()<<" €\n\t"; 
 		/* ----------- LLAMAMOS A LA IMPRESION ESPECIFICA DE CADA ARTICULO ---------- */
  		a.impresion_especifica(salida); 
     	return salida;
