@@ -53,10 +53,15 @@ Pedido::Pedido(Usuario_Pedido& u_p, Pedido_Articulo& p_a, Usuario& us, const Tar
           if(libro_digital->f_expir() < f){
             us.compra(*i->first, 0);
           }      
-        } 
+        }
+        if(us.compra().empty()){
+        throw Vacio(&us);
+      }  
       }
- 
+      
     }
+   
+        
     u_p.asocia(*this,us);//asociamos el user al pedido
     auto temporal=us.compra();
     for (auto i:temporal)
