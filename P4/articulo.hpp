@@ -93,7 +93,7 @@ public:
 	}
 	
 	virtual void impresion_especifica(std::ostream& salida) const = 0; 
- 	virtual ~Articulo(){} //destructor
+ 	virtual ~Articulo(){} //destructor virtual para la eliminacion correcta de las herencias
 	class Autores_vacios{};
 
 private:

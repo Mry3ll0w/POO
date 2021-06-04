@@ -67,7 +67,7 @@ Pedido::Pedido(Usuario_Pedido& u_p, Pedido_Articulo& p_a, Usuario& us, const Tar
     for (auto i:temporal)
     {
       /*
-      us.compra(*i.first,0);
+     
       p_a.pedir(*this,*i.first,i.first->precio(),i.second);
       importe_total_+=i.first->precio()*i.second; //importe=precio*cantidad
       i.first->stock()-=i.second;//actualizamos la cantidad
@@ -76,8 +76,9 @@ Pedido::Pedido(Usuario_Pedido& u_p, Pedido_Articulo& p_a, Usuario& us, const Tar
       p_a.pedir(*this, *i.first, i.first->precio(), i.second); 
       if(ArticuloAlmacenable* art_almacenable = dynamic_cast<ArticuloAlmacenable*>(i.first)){
           art_almacenable->stock() -= i.second;
+          
       } 
-        
+      us.compra(*i.first,0);//Vaciamos el carrito ya que tras la compra se vacia el carrito
     }
     ++n_ped_t_;//Aumentamos el numero de pedidos realizados
 }
