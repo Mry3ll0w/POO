@@ -8,7 +8,7 @@
             "name": "(Windows) Iniciar",
             "type": "cppvsdbg",
             "request": "launch",
-            "program": "Escriba el nombre del programa; por ejemplo, ${workspaceFolder}/a.exe.",
+            "program": "${workspaceFolder}/ej_examen_p2.exe.",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
