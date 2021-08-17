@@ -1,46 +1,24 @@
 #include <iostream>
-using namespace std;//Avoid using std:: ....
-
-class a {
-    int x;
+class B{
     public:
-        a(){cout<<"ctor de a"<<endl;}
-        void f(){cout<<"f() de a"<<endl;}
+    virtual void f(){std::cout<<"f de B"<<std::endl;}
+    B()=default;
+    ~B()=default;
 };
-class b:virtual public a{
-    int x;
+class D: public B{
     public:
-        b(){cout<<"ctor de b"<<endl;}
-        void f(){cout<<"f() de b"<<endl;}
-};
-class c:virtual public a{
-    int x;
-    public:
-        c(){cout<<"ctor de c"<<endl;}
-        void f(){cout<<"f() de b"<<endl;}
-};
-class D:public b,public c{
-    int x;
-    public:
-        D(){cout<<"ctor de d"<<endl;}
+    void f(){std::cout<<"f de D"<<std::endl;}
+    D()=default;
+    ~D()=default;
 };
 
 int main(){
-    a *pa;
-    b *pb;
-    D d,*pd;
-
-    pd = &d;
-
-    pa= &d;
-    pa->f();
-
-    pb=&d;
-    pb->f();
-
-    pd = (D*)pb;
-    pd->b::f();
-    d.c::f();
-
-    return 0;
+B b, *bp;
+D d, *dp;
+bp = &d;
+bp->f();
+dp = &b;
+dp->f();
+dp = &d;
+dp->f();
 }

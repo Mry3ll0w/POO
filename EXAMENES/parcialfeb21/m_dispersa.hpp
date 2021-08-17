@@ -63,7 +63,7 @@ bool MatrizDispersa::buscar(size_t f, size_t c, size_t& indice){
     }
     else{
         indice = i;
-        if (!(t<val[i])){/* t>=val[i] */ //PREGUNTAR DANI no entiendo caso > 
+        if (!(t<val[i])){/*Si la terna buscada no es mas small que la dada es igual, no puede ser mas grande */
             aux_encontrado = true;
         }
     }
