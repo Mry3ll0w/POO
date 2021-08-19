@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <vector>
 class Cadena{
     char* pc; /* Contiene la cadena */
     size_t n;  /* Indica el tamaño de la cadena  */
@@ -69,6 +70,7 @@ public:
     double& radio(){return radio_x();}
     double const radio()const{return radio_x();}
 };
+/* ------------------------------- EJERCICIO 4 ------------------------------ PREGUNTAR DANI*/ 
 /* ---------------------------- MAIN PARA PRUEBAS --------------------------- */
 int main(){ 
     /* Ejercicio 1 (pregunta de teoria)
