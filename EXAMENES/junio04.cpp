@@ -42,6 +42,33 @@ std::ostream& operator<<(std::ostream& os,  Cadena& c){
     }
     return os;
 }
+/* ------------------ EJERCICIO 3 (ELIPSE Y CIRCUNFERENCIA) ----------------- */
+//El apartado a nos decia que establecieramos las relaciones de elipse y circunferencia 
+//El b nos pide implementar lo mismo con una clase figura plana por lo que ambas heredan de figura plana
+class figura_plana{
+    public:
+        void virtual escalado()=0;
+};
+class elipse:public figura_plana{
+    double x, y;
+public:
+    elipse(double x_=0, double y_=0):x(x_), y(y_){}
+    void  escalado(double escala){x *= escala; y*= escala;}
+protected: // ya que la clase circunferencia no debe acceder a los metodos radio_x/y sino a radio (de forma externa)   
+    double& radio_x(){return x;}
+    double const radio_x()const{return x;}
+    double& radio_y(){return y;}
+    double const radio_y()const{return y;}
+};
+class circunferencia:public elipse{//al heredar de elipse tambien lo hara de figura plana
+public:
+    circunferencia(double r){
+        radio_x()=r;radio_y()=r;// ya que una circunferencia tiene igual radio x e y
+    }
+    void escalado(double escala){elipse::escalado(escala);}
+    double& radio(){return radio_x();}
+    double const radio()const{return radio_x();}
+};
 /* ---------------------------- MAIN PARA PRUEBAS --------------------------- */
 int main(){ 
     /* Ejercicio 1 (pregunta de teoria)
