@@ -92,18 +92,19 @@ bool disjuntos(std::vector<t>& a, std::vector<t>&b,std::vector<t>& inter ){
     
     return inter.size()== 0;
 }
-//faltan la funcion comparten y la sobrecarga de insercion
+template <class t>
+std::ostream& operator <<(std::ostream&os,std::vector<t>&v){
+    for (size_t i:v)
+    {
+        os<<v[i]<<", ";
+    }
+    return os;
+}
+//faltan la funcion comparten 
 /* ---------------------------- MAIN PARA PRUEBAS --------------------------- */
 int main(){
     std::vector<int> a,b,c;
-    a.insert(a.end(),1);
-    a.insert(a.end(),2);
-    a.insert(a.end(),3);
-    b.insert(b.end(),7);
-    b.insert(b.end(),3);
-    b.insert(b.end(),9);
-    std::cout<< disjuntos(a,b,c)<<std::endl;
-    std::cout<< c.size()<<std::endl;
+
     
     
 }
