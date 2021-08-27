@@ -11,6 +11,26 @@ public:
     int d_get(){return d;}
     racional inv();
 };
+/* ------------------------------- OPERADORES ------------------------------- */
+bool operator==(racional&a,racional&b){
+    return (a.n_get()==b.n_get() && a.d_get()==b.d_get());
+}
+bool operator!=(racional&a,racional&b){
+    return !(a==b);
+}
+bool operator <(racional&a,racional&b){
+    return ((a.n_get()/a.d_get())<(b.n_get()/b.d_get()));
+}
+bool operator<=(racional&a,racional&b){
+    return (a==b||a<b);
+}
+bool operator >=(racional&a,racional&b){
+    return !(a<b);
+}
+bool operator >(racional&a,racional&b){
+    return ((a.n_get()/a.d_get())>(b.n_get()/b.d_get()));
+}
+/* ------------------------------ operaciones ------------------------------ */
 racional operator+(racional& a,racional& b){
     if (a.d_get()==b.d_get())
     {
@@ -51,9 +71,13 @@ std::ostream& operator<<(std::ostream&os, racional& r){
 }
 /* ---------------------------- MAIN PARA PRUEBAS --------------------------- */
 int main(){
-    racional r={0,1};
+    racional r={1,1};
     racional s=racional{2,3};
-    std::cout<<s<<std::endl;std::cout<<s<<std::endl;
+    if (r>s)
+    {
+        std::cout<<"r"<<std::endl;
+    }
     
+    return 0;
 }
 racional::racional(std::initializer_list<int>&l):n(*l.begin()),d(*l.end()){}
