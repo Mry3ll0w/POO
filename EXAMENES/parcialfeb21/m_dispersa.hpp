@@ -32,7 +32,7 @@ class MatrizDispersa{
 
 MatrizDispersa::MatrizDispersa(const size_t& f_=1, const size_t& c_=1):m(f_),n(c_) {}
 
-inline MatrizDispersa::MatrizDispersa(std::initializer_list<terna>&t)/* {1,2,10.3},{3,4,9.23} */
+MatrizDispersa::MatrizDispersa(std::initializer_list<terna>&t)/* {1,2,10.3},{3,4,9.23} */
 {
     size_t i=0;
     /* El ultimo {} tiene m,n ,v */
