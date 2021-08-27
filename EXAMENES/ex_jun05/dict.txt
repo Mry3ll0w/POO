@@ -1,0 +1,4 @@
+hi-hola
+hi-buenas
+bye-adios
+see_ya-nos vemos
