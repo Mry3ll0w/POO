@@ -29,18 +29,15 @@ public:
     unsigned* vector();
     unsigned& operator[] (size_t i);
     binario& operator = (binario& b);
-    
+    friend std::ostream& operator<<(std::ostream& os , const binario& a){
+        os<<"El numero tiene "<<a.unos()<<" con valor 1 y "<<a.n_bits()-a.unos()<<" con valor 0";
+        return os;
+    }
 };
-/* preparativos para hacer el resto
-sobrecargar []
-funcion bool bit(size_t pos) ==> si 0 false/ else true   
- */
+
 int main(){
     binario a("010101");
-    a.show();
-    a[0]=1;
-    a.show();
-    return 0;
+    std::cout << a << std::endl;
 }
 /* --------------------------------- METODOS -------------------------------- */
 binario& binario::operator =(binario& b){
