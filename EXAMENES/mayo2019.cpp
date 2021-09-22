@@ -38,6 +38,7 @@ public:
 int main(){
     binario a("010101");
     std::cout << a << std::endl;
+    
 }
 /* --------------------------------- METODOS -------------------------------- */
 binario& binario::operator =(binario& b){
@@ -118,3 +119,24 @@ binario::binario(const char* v_){
         }
     }
 }
+/* ------------------------------- EJERCICIO 3 ------------------------------ */
+class figura_plana{
+    public:
+    figura_plana()=default;
+    virtual void reducir(double)=0;
+};
+class elipse:public figura_plana{
+    double x,y;
+public:
+    void reducir(double factor){x/=factor;y/=factor;}
+    elipse(double x_,double y_):x(x_),y(y_) {}
+protected:
+    const double radio_x()const {return x;}
+    const double radio_y()const {return y;}
+};
+class circulo:public elipse{
+public:
+    circulo(double r):elipse(r,r){}
+    const double radio()const{return radio_x();}
+};
+
