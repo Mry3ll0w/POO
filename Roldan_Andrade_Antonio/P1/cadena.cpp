@@ -21,6 +21,7 @@ Cadena::Cadena(const char* parser_cad)noexcept:s_(new char[strlen(parser_cad)+1]
     {
         s_[i]=' ';
     }
+    s_[tam_]='\0';
 }
 
 Cadena::Cadena(const Cadena &new_cad){

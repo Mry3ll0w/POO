@@ -49,7 +49,7 @@ const char* Fecha::cadena()const{
     return salida;
 }
 
-Fecha::~Fecha()=default;
+
 
 const char* Fecha::month_selector(int m){
         switch(m){

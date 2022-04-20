@@ -10,14 +10,14 @@ class Fecha{
     
     public:
         //Constantes
-        static const int  AnnoMinimo=1902;
-        static const int AnnoMaximo=2037;
+        static const int  AnnoMinimo{1902};
+        static const int AnnoMaximo{2037};
         //Constructores
         explicit Fecha(int d=0, int m=0, int y=0);
         Fecha(const char* date);
         const char* cadena()const;
 
-        //Fecha(const Fecha& f){};
+        //Fecha(const Fecha& f)=default;
         //Clase de excepcion
         class Invalida{
             public:
@@ -64,7 +64,7 @@ class Fecha{
         Fecha operator -(int)const;
         Fecha& operator+=(int);
         Fecha& operator-=(int);
-        ~Fecha();
+        ~Fecha()=default;
 
         //Operadores De E/S
        friend std::ostream& operator << (std::ostream& salida,const Fecha& date);

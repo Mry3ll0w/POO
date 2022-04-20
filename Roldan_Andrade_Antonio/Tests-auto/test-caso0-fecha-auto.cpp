@@ -146,6 +146,9 @@ FCTMF_FIXTURE_SUITE_BGN(test_fecha) {
 
     FCT_TEST_BGN(Fecha - Ctor.: copia trivial) {
 #if __GLIBCXX__ >= 20160301
+      std::cout << is_trivially_copy_constructible<Fecha>::value;
+      std::cout << std::is_trivially_copy_constructible<Fecha>::value;
+
       fct_chk(is_trivially_copy_constructible<Fecha>::value);
 #endif
       fct_chk(is_nothrow_copy_constructible<Fecha>::value);
