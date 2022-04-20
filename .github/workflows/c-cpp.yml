@@ -13,7 +13,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Install dependencies
-      run: sudo apt-get install -y clan binutils g++ language-pack-es
+      run: sudo apt-get install -y clang binutils g++ language-pack-es
     - name: make
       working-directory: ./Roldan_Andrade_Antonio/P4/
       run: make 
