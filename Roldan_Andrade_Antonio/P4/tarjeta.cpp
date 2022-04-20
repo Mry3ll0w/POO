@@ -10,7 +10,7 @@ bool luhn(const Cadena& num);
 
 Numero::Numero(const Cadena& n)
 	: numero_(longitud(n))
-{
+{//
     if( std::count_if(numero_.begin(), numero_.end(), static_cast<int(*)(int)>(std::isdigit)) != numero_.length() )
     {
         throw Incorrecto(Razon::DIGITOS) ;
