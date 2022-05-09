@@ -120,8 +120,56 @@ void Profesor_Grupo::imparte(const Profesor& p,const Grupo& g)
 
 	}
 
+	//Relación inversa entre grupo y profesor
+	//std::map<Profesor*, std::set<Grupo*>>prof_grupo;
+	//std::map<Grupo*, Profesor*> grupo_prof;
+
+	//No hay grupo asignado, por tanto insertamos la pareja
+	if (grupo_prof.find(&g) == grupo_prof.end())
+	{
+		grupo_prof.insert(std::make_pair(&g,&p));
+	}
+	else //Hemos encontrado un grupo, hacemos la eliminacion e insertamos
+	{
+		if (grupo_prof[&g]==nullptr)//caso de que el map este vacio
+		{
+			grupo_prof[&g]=&p;
+		}
+		else{
+			grupo_prof.erase(&g);
+			grupo_prof.insert(std::make_pair(&g,&p));
+		}
+	}
+}
+
+void Profesor_Grupo::imparte(const Grupo& g, const Profesor& p){
+	imparte(g,p);
 }
 
 //--------------------------------------------IMPARTIDOS---------------------------------------------
+//std::map<Profesor*, std::set<Grupo*>>prof_grupo;
+//std::map<Grupo*, Profesor*> grupo_prof;
+//Devuelve los elementos dentro de la relacion, hacia profesor o hacia grupo
 
+std::set<Grupo*> Profesor_Grupo::impartidos(const Profesor& p){
 
+	if (prof_grupo.find(&p) != prof_grupo.end())
+	{
+		return prof_grupo[&p];
+	}
+	else{
+		return std::set<Grupo*>();//si no hay elementos se devuelve un set vacio
+	}
+}
+
+Profesor & Profesor_Grupo::impartidos(const Grupo & g)
+{
+	if (grupo_prof.find(&g) != grupo_prof.end())
+	{
+		return grupo_prof[&g];
+	}
+	else{//no hay nada asi que devolvemos un elemento vacio
+		Profesor* p = nullptr;
+		return p;
+	}
+}
