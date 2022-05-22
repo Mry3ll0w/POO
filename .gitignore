@@ -36,3 +36,7 @@
 *.app
 
 # End of https://www.toptal.com/developers/gitignore/api/c++
+
+.vagrant/machines/default/virtualbox/
+
+.vagrant/rgloader/
