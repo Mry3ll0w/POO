@@ -85,7 +85,7 @@ public:
     const Usuario* titular()const{ return titular_; }
     Fecha caducidad()const{ return caducidad_;}
     bool activa()const{return activa_;}
-    bool activa(bool f=true);
+    bool activa(bool f);
     Tipo tipo()const{return tipo_;}
     Tarjeta::Tipo selec_tipo()const;
 
@@ -94,8 +94,8 @@ private:
     const Usuario* titular_;
     Fecha caducidad_;
     bool activa_;
-    num numeros;
     Tipo tipo_;
+    static std::set<Numero> numeros;
 };
 
 bool operator <(const Numero&, const Numero&);

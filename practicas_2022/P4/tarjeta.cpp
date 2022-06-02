@@ -7,7 +7,7 @@
 #include "usuario.hpp"
 bool luhn(const Cadena& num);
 /* ------------------------------ Clase numero ------------------------------ */
-
+std::set<Numero>Tarjeta::numeros;
 Numero::Numero(const Cadena& n)
 	: numero_(longitud(n))
 {//
@@ -72,15 +72,18 @@ Tarjeta::Tarjeta(const Numero& numero, Usuario& user,const Fecha& fecha_caducida
       activa_(true),
       tipo_(selec_tipo())
 {
-    if (numeros.insert(numero_).second==false)
-    {
-        throw Num_duplicado(numero_);
-    }
+   
 /* ------------------------- La tarjeta esta Caducada ------------------------ */
     if (caducidad_ < Fecha())//Si la fecha de caducidad es mayor o igual que la actual entonces esta caducada
     {
         throw Caducada(fecha_caducidad);
     }
+
+    if (numeros.insert(numero_).second==false)
+    {
+        throw Num_duplicado(numero_);
+    }
+
     auto tit_ = const_cast<Usuario*>(titular_);
     
     tit_->es_titular_de(*this);

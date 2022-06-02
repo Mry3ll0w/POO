@@ -28,7 +28,7 @@ Clave::Clave(const char* input){
     {
         throw Clave::ERROR_CRYPT;
     }
-    clave_cifrada =crypt(input,salida);
+    clave_cifrada = crypt(input,salida);
 } 
 
 
