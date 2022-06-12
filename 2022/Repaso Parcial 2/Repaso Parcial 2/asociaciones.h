@@ -118,5 +118,47 @@ void ejercicio_septiembre(){
 }
 
 
+void septiembre_2021(){
+    
+    class operador; class llamada;
+    
+    class llamada{
+      
+    private:
+        std::string hora_inicio, duracion;
+        operador * op; //Representamos la relación 0..1, ya que cada llamada es atendida por un operador
+    public:
+        void asignar(operador* o){
+            op = o;
+        }
+        operador* asistente(){
+            return op;
+        }
+        
+    };
+    
+    class operador{
+    private:
+        std::map<std::string, llamada*> llamadas;
+    public:
+        void atender(std::string c, llamada l){
+            if (llamadas.find(c) == llamadas.end()) {
+                llamadas.insert(std::make_pair(c,&l));
+            }
+            else{
+                llamadas.erase(c);
+                llamadas.insert(std::make_pair(c,&l));
+            }
+        }
+        
+        //Falta el que devuelve la llamada y tal, alta pereza
+        
+    };
+    
+   
+    
+}
+
+
 
 #endif /* asociaciones_h */
