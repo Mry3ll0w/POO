@@ -1,8 +1,8 @@
 #include <iostream>
 #include "polimorfismo.h"
+#include "asociaciones.h""
 
 int main(int argc, const char * argv[]) {
-    examen_2015();
     
     return 0;
 }

@@ -16,6 +16,7 @@ void examen_2015 (){
         forma(const double l):lado(l){}
         virtual double area()=0;
         double lado_figura() const {return lado;}
+        virtual ~forma();
     };
     
     class circulo : public forma{
@@ -60,6 +61,7 @@ void elipse_circunferencia(){
         double& radio_y(){return r_y;}
         //Recibe un numero que escala la figura geometrica
         virtual void escala()=0;
+        virtual ~base()=default;
     };
     
     class circulo : public base{
