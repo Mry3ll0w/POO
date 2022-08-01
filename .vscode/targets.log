@@ -10,7 +10,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 make: *** No rule to make target `all'.  Stop.
 
 
-# Make data base, printed on Mon Aug  1 12:13:47 2022
+# Make data base, printed on Mon Aug  1 18:01:03 2022
 
 # Variables
 
@@ -159,7 +159,7 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-VSCODE_PID = 83312
+VSCODE_PID = 91882
 # variable set hash-table stats:
 # Load=73/1024=7%, Rehash=0, Collisions=1/94=1%
 
@@ -219,7 +219,6 @@ makefile:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
- 
 
 # Not a target:
 GNUmakefile:
@@ -244,6 +243,6 @@ GNUmakefile:
 # strcache size: total = 0 / max = 0 / min = 4096 / avg = 0
 # strcache free: total = 0 / max = 0 / min = 4096 / avg = 0
 
-# Finished Make data base on Mon Aug  1 12:13:47 2022
+# Finished Make data base on Mon Aug  1 18:01:03 2022
 
  
