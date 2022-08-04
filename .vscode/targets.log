@@ -6,11 +6,8 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # PARTICULAR PURPOSE.
 
 # This program built for i386-apple-darwin11.3.0
- 
-make: *** No rule to make target `all'.  Stop.
 
-
-# Make data base, printed on Mon Aug  1 18:01:03 2022
+# Make data base, printed on Thu Aug  4 16:04:11 2022
 
 # Variables
 
@@ -76,6 +73,9 @@ VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 HOME = /Users/antonioroldanandrade
 # default
 MAKEFILEPATH = $(shell /usr/bin/xcode-select -print-path 2>/dev/null || echo /Developer)/Makefiles
+ 
+make: *** No rule to make target `all'.  Stop.
+
 # environment
 VSCODE_CODE_CACHE_PATH = /Users/antonioroldanandrade/Library/Application Support/Code/CachedData/3b889b090b5ad5793f524b5d1d39fda662b96a2a
 # environment
@@ -159,7 +159,7 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-VSCODE_PID = 91882
+VSCODE_PID = 21693
 # variable set hash-table stats:
 # Load=73/1024=7%, Rehash=0, Collisions=1/94=1%
 
@@ -243,6 +243,6 @@ GNUmakefile:
 # strcache size: total = 0 / max = 0 / min = 4096 / avg = 0
 # strcache free: total = 0 / max = 0 / min = 4096 / avg = 0
 
-# Finished Make data base on Mon Aug  1 18:01:03 2022
+# Finished Make data base on Thu Aug  4 16:04:11 2022
 
  
