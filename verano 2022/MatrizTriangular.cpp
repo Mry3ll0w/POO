@@ -56,7 +56,7 @@ public:
 
 //Funcion rellenar
 template<class T>
-void rellenar(MatrizTriangularSuperior<T>& m, int f = [&](){
+void rellenar(MatrizTriangularSuperior<T>& m, int f = [](MatrizTriangularSuperior<T>& m){
     int sum = 0;
     for(size_t i = 0; i < m.orden(); ++i)
         for(size_t j = 0; j < m.orden(); ++j)
