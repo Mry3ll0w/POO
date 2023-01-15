@@ -84,6 +84,7 @@ public:
 
 int main(){
     Vector v={1,23,4,51,2313.2},v2(3);
+    Vector v4 = 3;
     cout << v.at(1231)<<endl;
     v.imprime_vector();
 return 0;
